@@ -1,0 +1,74 @@
+Nome do vaso,Cmin(cm),Cmax(cm),R(cm),h(cm)
+1 basilar,2.270,2.2377700,0.1734,0.0436
+2 calosomarginal,4.780,4.780,0.0623,0.0208
+3 carótida Interna,13.710,13.710,0.2765,0.05477
+4 central póstaromedial,0.270,0.290,0.0206,0.0079
+5 infarior antaerior,3.750,3.750,0.0366,0.0134
+6 cerebelarinferior posterior,3.560,3.560,0.0433,0.0155
+7 caerebalar auparior,4.680,4.780,0.0558,0.0191
+8 cerebralanterior,4.000,4.000,0.0965,0.0292
+9 cerobral média,3.030,3.030,0.1041,0.0309
+10 comunicante antarior,0.570,0.570,0.0657,0.0218
+11 comunticante posterior,1.670,1.670,0.0494,0.0178
+12 corióidea anterior,2.590,2.590,0.0520,0.0180
+13 da ponte,1.2340,1.450,0.0075,0.0030
+14 dosulco cantral,10.690,0.690,0.0481,0.0168
+15 dosulco pós-central,7.380,7.390,0.0481,0.0169
+16 dosulco prê-central,9.780,9.780,0.0481,0.0169
+17 dotóúber cinóreo,0.590,0.590,0.0191,0.0074
+18 distal medial,1.300,1.300,0.0273,0.0103
+19 proximal medial,0.390,0.3810,0.0080,0.0032
+20 frontobasillar lateral,4.340,4.340,0.0385,0.0140
+21 frontobasilar medial,2.470,2.470,0.0378,0.0137
+22 loenticuloastriada,0.280,0.290,0.0291,0.0109
+23 mamíilar,0.210,0.210,0.0191,0.0074
+24 occipital lataral,2.840,2.840,0.0650,0.0217
+25 occiplital módia,5.870,5.870,0.0795,0.0353
+26 parietel anterior,6.280,6.280,0.0443,0.0167
+27 parietal posterior,4.310,4.310,0.0540,0.0180
+28 perfurante anterior,0.290,0.320,0.0080,0.0032
+29 parfurantado tálamo,0.880,0.880,0.0235,0.0090
+30 perícalosa,7.150,7.150,0.0800,0.0355
+31 polarfrontal,4.930,4.830,0.058777,0.0185
+32 pró-frontal,10.120,0.130,0.0481,0.0168
+33 talamogeniculada,0.920,0.920,0.0124,0.0049
+34 talamotuberal,0.470,0.470,0.0191,0.0074
+35 temporal polar,2.1980,2.190,0.0910,0.0115
+36 vartabral,21.1390,21.190,0.1935,0.0365
+37 corebral posterior,1.280,1.280,0.0865,0.0271
+38 carebral poaterior,0.710,0.790,0.0816,0.0269
+39 occipital módia,1.480,1.480,0.0350,0.01238
+40 ventrículo latera),0.490,0.490,0.0167,0.0065
+41 corióidea anterior,0.680,0.680,0.0167,0.0065
+42 corióiden anterior,0.610,0.610,0.0167,0.0065
+43 docíngulodas calosomarginal,1.760,1.760,0.0475,0.01877
+44 corióldea anterior,0.540,0.540,0.01677,0.0065
+45 cerebral média,5.260,5.260,0.05658,0.0191
+46 comunicante posterior,0.270,0.9770,0.0036,0.0014
+47 corilóidea anterior,0.570,0.570,0.01677,0.0065
+48 occlpital mádia,2.580,2.590,0.0950,0.0128
+4D a. calosomarginal,3.670,3.670,0.0458,0.0162
+50 a. calosomarginal,3.450,3.450,0.0466,0.0164
+51 a. calosomarginal,4.240,4.240,0.0522,0.0181
+52 comunicante posterior,0.400,0.400,0.0191,0.0074
+53 cerabalar suparior,2.150,2.150,0.01268,0.0051
+54 coerabalar superior,2.460,2.460,0.0149,0.00521
+55 ocdpital média,3.020,3.020,0.0350,0.0138
+56 paracentral!ldaa calosomarginal,4.350,4.250,0.0475,0.01677
+57 occipital módia,2.820,2.820,0.0295,0.0110
+58 occipltal mádia,4.260,4.260,0.0500,0.0175
+59 à. perícalosa,4.220,4.220,0.0432,0.0151
+60 cerabra! postarior,1.700,1.700,0.0243,0.0092
+61 cerebra! posterior,1.740,1.740,0.0343,0.0092
+62 precunealdaa pericalosa,5.450,5.450,0.0477,0.0168
+63 comunicante poscarior,0.470,0.470,0.0191,0.0074
+64 corióidea anterior,0.480,0.480,0.01677,0.0065
+65 cerabral mádia,2.720,2.720,0.0443,0.0167
+66 occipital lateral,2.650,2.650,0.0600,0.0203
+67 carnbral módia,3.020,3.020,0.0462,0.0163
+68 occipital lateral,2.130,2.190,0.0280,0.0105
+69 cerebra! méódia,2.990,3.990,0.0500,0.0175
+70 occlpital lateral,2.070,2.070,0.09375,0.0136
+71 corebral módia,5.760,5.7760,0.0500,0.0175
+72 cereabral média,7.210,7.210,0.0816,0.0269
+73 carebral módia,2.820,2.820,0.08777,0.02373

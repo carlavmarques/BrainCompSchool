@@ -1,0 +1,169 @@
+Artérias do cérebro
+
+ 
+
+1 a basilar (1) N
+
+2 a calosomarginal (2) 3
+
+3 a carótida Interna (2) S
+
+4 à central póstaromedial (4) 8
+
+5 a cerobalar infarior antaerior (2) 3
+
+6 a cerebelarinferior posterior (2) S
+
+T a caerebalar auparior (2) 3
+
+8 a cerebralanterior (2) 8
+
+9D a cerobral média (2) 3
+10 à comunicante antarior (1) N
+11 aà. comunticante posterior (2) s
+12 a corióidea anterior (2) 3
+13 a da ponte (4) S
+14 a dosulco cantral (2) 8
+15 àa dosulco pós-central (3) S
+16 a dosulco prê-central (2) 8
+17 a dotóúber cinóreo (2) S
+18 a estriada distal medial (2) S
+19 a estrisda proximal medial (6) E
+20 a frontobasillar lateral (2) S
+21 a. frontobasilar medial (2) 8
+22 a loenticuloastriada (8) 3
+23 a mamíilar(2) S
+24 a occipital lataral (2) 3
+25 à occiplital módia (2) S
+26 a parietel anterior (2) 3
+27 à parietal posterior (2) S
+28 a perfurante anterior (6) 8
+29 a parfurantado tálamo (2) 8
+30 a perícalosa (2) Fs
+31 a polarfrontal (2) 8
+32 a pró-frontal(2) S
+33 a talamogeniculada (2) 8
+34 a talamotuberal (2) 3
+35 a temporal polar (2) S
+36 a vartabral (2) 8
+37  partepós-comunicante da à, corebral posterior (2) S
+38  partaprê-comnicante da à. carebral poaterior (2) 8
+39 r calcarinodaa occipital módia (2) 3
+40 r. coríióideodo ventrículo latera) (2) E
+41 r dasubrtâncianagçrada a corióidea anterior (2) 3
+42 r dasubstância perfurada anterior da à. corióiden anterior (2) S
+43 r docíngulodas calosomarginal (2) 8
+44  r docorpoganíiculado lateral de &. corióldea anterior (2) S
+45 r dogroangulardaa cerebral média (2) 8
+46 r. do narvo oculomotor da &. comunicante posterior (2) S
+4T r dotratoópticoda a corilóidea anterior (2) S
+48  r dorsaldocorpocsalosoda a. occlpital mádia (2) g
+4D r frontal áântero-madial da a. calosomarginal (2) 8
+50 r frontalintermódiomedial da a. calosomarginal (2) 8
+51 r frontal pósteromedial da a. calosomarginal (2) 8
+52 r hipotalâmicodaa comunicante posterior (2) S
+53  r lataraldan cerabalar suparior (2) s
+54 r. medialda a coerabalar superior (3) S
+55 r occipitotamporal da a. ocdpital média (2) 8
+56 r paracentral!ldaa calosomarginal (2) 8
+57 r paristildaa occipital módia (2) S
+58 r parietooccipltal da & occipltal mádia (2) 3
+59  r parieto-occipital da à. perícalosa (2) S
+680 r. postarior corlóideo lacera! da a. cerabra! postarior (2) 8
+61 r. posterior corióidao medial da &. cerebra! posterior (2) S
+62 r precunealdaa  pericalosa (2) 3
+63 r quiasmáticodas comunicante poscarior (2) 3
+64 r quiasmáticodaa, corióidea anterior (23) S
+65 r tamporal antariorda a cerabral mádia (2) 8
+66 r taemporalantariorda n occipital lateral (2) 3
+67 r tamporal mádioda a. carnbral módia (2) S
+68  r tamporalmédiodaa occipital lateral (2) 3
+69 r temporal posterior da a. cerebra! méódia (3) S
+70 r temporal postarior da à. occlpital lateral (2) 8
+T1 r tômporo-occipital da a, corebral módia (2) S
+72 r tarminalínfarior da &. cereabral média (2) 8
+T3 x terminal auperior da a. carebral módia (2) 8
+
+2.270 2.23T7TO0 0.1734 0.0436
+4.T80 4.T80 0.0623 0.0208
+13.T10 13.710 0.3765 0.0547T
+0.270 0.290 0.0206 0.0079
+3.T5O 3.T50 0.0366 0.0134
+3-560 3-560 0.0433 0.0155
+4.680 4.780 0.0558 0.0191
+4.000 4.000 0.0965 0.07973
+3-030 3-030 0.1041 0.0809
+0.570 0.570 0.0657 0.0218
+1.670 1.670 0.0494 0.0178
+2.590 2.590 0.0520 0.0180
+1.2340 1.450 0.0075 0.0030
+10.690 10.690 0.0481 0.0168
+7.380 7.390 0.0481 0.0169
+9.780 9.780 0.0481 0.0169
+0.590 0.590 0.0191 0.0074
+1-300 1-300 0.0273 0.0103
+0.390 0.3810 0.0080 0.0032
+4.340 4.340 0.0385 0.0140
+2.470 2.470 0.0378 0.0137
+0.280 0.290 0.0291 0.0109
+0-210 0-210 0.0191 0.0074
+2.840 2.840 10.0650 0.021T
+5-870 5.870 0.0795 0.0353
+6.280 86.280 0.0443 0.016T
+4.310 4.310 0.0540 0.0180
+0.290 0.320 0.0080 0.0032
+0.880 0.880 0.0235 0.0090
+T.150 T.150 0.0800 0 0355
+4.930 4.830 0.0587T7 0.0185
+10.120 10.130 0.0481 0.0168
+0.920 0.920 0.0124 0.0049
+0.470 0.470 0.0191 0.00T4
+2-1980 2-190 0.0910 0.0115
+21.1390 21.190 0.1935 0.0365
+1.280 1.280 0.0865 0.0271
+0.710 0-790 0.0816 0.0269
+1.480 1.480 0.0350 0.01238
+0-490 0-490 0.0167 0.0065
+0.680 0.680 0.016T 0.0065
+0.610 0.610 0.016T 0.0065
+1.760 1.760 0.0475 0.0187T
+0.540 0.540 0.0167T 0.0065
+5-260 5-260 0.05658 0.0191
+0.270 0.9T70 0.0036 0.0014
+0.570 0.570 09.0167T 0.0065
+2.580 2.590 0.0950 0.0128
+3.6T0 3.670 0.0458 0.0162
+3.450 3.450 0.0466 0.0164
+4.240 4.240 0.0522 0.0181
+0-400 0-400 0.0191 0.0074
+2.150 2.150 0.01268 0.0051
+2.460 2.460 0.0149 0.00521
+3-.020 3.020 0.0350 0.0138
+4.350 4.250 0.0475 0.0167T
+2.820 2.820 0.0295 0.0110
+4.260 4.260 0.0500 0.0175
+4.220 4.220 0.0432 0.0151
+1.700 1.700 0.0243 0.0092
+1.T40 1.T40 0.0343 0.0092
+5-450 5-450 0.047T 0.0168
+0.470 0.470 0.0191 0.0074
+0.480 0-480 0.0167T 0.0065
+2.720 2.720 0.0443 0.0167
+2.650 2.650 0.0600 0.0203
+3.020 3.020 0.0462 0.0163
+2.130 2.190 0.0280 0.0105
+2-990 3-990 0.0500 0.0175
+2.070 2.070 0.09375 0.0136
+5.T60 5.T760 0.0500 0.0175
+7.210 7.210 0.0816 0.0269
+2.820 2.820 0.087TT 0.023T3
+
+Table 2: Dados geométricos das artérias do cérebro. (n): número total de ocorrências na
+região anatômica; BL: artéria bilateral? S/N; Chia: comprimento da menor ocorrência;
+
+Cmax: comprimento da maior ocorrência; R; raio interno; h: espessura da parcde arterial.
+
+O2014 ADAN - All rights reserved
+
+http://www.Incec br/prihemo/adan-web/
+

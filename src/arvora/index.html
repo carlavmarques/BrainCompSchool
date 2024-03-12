@@ -1,0 +1,48 @@
+<!---
+Open Source program Arvora - Copyright © 2024  Carlo Oliveira** <carlo@nce.ufrj.br>,
+PDX-License-Identifier:** `GNU General Public License v3.0 or later <http://is.gd/3Udt>`_.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Arvora - Brain Computational School</title>
+    <link rel="shortcut icon" href="/src/arvora/_media/arvora_ico.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type=" text/javascript " src=" https://cdn.jsdelivr.net/npm/brython@3.12.3/brython.min.js "></script>
+    <script type=" text/javascript " src=" https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js "></script>
+    <style>
+    .main_hero {
+        background-image: url('/src/arvora/_media/arvorab.svg');
+        background-size: cover;
+    }
+    .none_hero {
+        background-image: url('/src/arvora/_media/construindo.svg');
+        background-size: cover;
+    }
+    .main-text {
+      color: forestgreen;
+        font-size: 6em;
+      text-shadow: 4px 4px 12px #29211b;
+    }
+    </style>
+
+</head>
+<body onload="brython({cache:'browser', static_stdlib_import:true, debug:1, pythonpath:['./_core', './_prog', './']})">
+    <div id="pydiv"></div>
+    <script type="text/python">
+        from browser import window, document, alert, html, timer
+        from _core.main import main
+        class Br:
+            window, document, alert, html, timer =(
+            window, document, alert, html, timer)
+        main(Br)
+    </script>
+
+</body>
+</html>
