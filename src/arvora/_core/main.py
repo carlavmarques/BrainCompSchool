@@ -87,6 +87,15 @@ class LandingPage(SimplePage):
         tt2 = h.P("Brain Computational School", Class="title is-1 main-text")
         return h.DIV((tt1, tt2))
 
+class PesquisaPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_pesquisa")
+
+    def build_body(self):
+        h = self.brython.html
+        pes = h.INPUT(type="text", Class="input is-rounded is-medium", placeholder="Rounded in")
+        div = h.DIV(pes, Class="is-half is-offset-one-quarter")
+        return h.DIV(div)
 
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
@@ -134,6 +143,7 @@ class Arvora:
         br = self.brython
         SimplePage.PAGES = {f"_{page}_": SimplePage(br) for page, _ in MENU_OPTIONS}
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
+        SimplePage.PAGES["_PESQUISA_"] = PesquisaPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
         _main = LandingPage(br)
         _main.show()
