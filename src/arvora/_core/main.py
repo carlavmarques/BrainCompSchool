@@ -183,7 +183,7 @@ class KnowledgePage(SimplePage):
 
         btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-grey-light is-4 block is-fullwidth")
         btn2 = h.BUTTON("Escreva seu artigo", Id='Writing',
-                        Class="button has-background-grey-light is-4 block is-fullwidth")
+                        Class="button has-background-grey-light is-4 block is-fullwidth mt-5")
         side_tab = h.DIV((btn2, btn1), Class='column is-3')
         side_tab.bind("click", click)
 
