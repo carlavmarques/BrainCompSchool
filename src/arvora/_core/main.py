@@ -93,9 +93,11 @@ class PesquisaPage(SimplePage):
 
     def build_body(self):
         h = self.brython.html
-        pes = h.INPUT(type="text", Class="input is-rounded is-medium", placeholder="Rounded in")
-        div = h.DIV(pes, Class="is-half is-offset-one-quarter")
-        return h.DIV(div)
+        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
+        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
+        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+        but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
+        return h.DIV((img,pes,but))
 
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
