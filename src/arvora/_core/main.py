@@ -49,26 +49,28 @@ class SimplePage:
         #     item.bind("click", self.link)
         [item.bind("click", self.link) for item in self.items]
 
-    # quando você clicar em algum lugar ele vai mostrar a página dentro do dicionario PAGES. Ele pega o id e tira todas as mini mudanças para botar qual página é (eu acho)
+    # essa função pega o id do algo que foi clicado e mostra a página que contém esse id e está dentro do dic PAGES.
     def link(self, ev=None):
-        # o ev.target.id pega o id da coisa que você clicou
+        # o ev.target.id pega o id da coisa que você clicou. O strip tira todos os tracinhos do id
         ev.preventDefault()
         page = ev.target.id.strip("-")
         self.PAGES[page].show()
 
+    #Essa função definitivamente faz a página aparecer na tela. Ela é utilizada na funcção anterior.
     def show(self):
-        # limpando o html primeiro
+        # Primeiro ela limpa o HTML
         self.brython.document["pydiv"].html = ""
-        # botando o page como filho da div pydiv
+        # Depois bota a página como filho da div pydiv
         _ = self.brython.document["pydiv"] <= self.page
-        # A parte de user vai receber o nome do usuário logado
+        #Essa linha eu não sei o que faz
         self.brython.document["_USER_-"].html = Arvora.ARVORA.current_user
 
+    #Não sei o que faz
     def build_body(self):
         return ()
 
+    # Essa função cria o arcabolso da página, com as divs e aplica o bulma nelas
     def hero(self, navigator):
-        # Aqui tem um lugar com várias divs. Div do header, do body e uma section com os dois.
         h = self.brython.html
         cnt = h.DIV(self.build_body(), Class="container has-text-centered pb-6 mgb-large")
         hby = h.DIV(cnt, Class="hero-body is-justify-content-center is-align-items-center")
@@ -76,6 +78,7 @@ class SimplePage:
         sec = h.SECTION((hea, hby), Class=f"hero {self.hero_class} is-fullheight")
         return sec
 
+    # Essa função constrói a barra de pesquisa
     def navigator(self, menu):
         h = self.brython.html
 
@@ -97,29 +100,36 @@ class SimplePage:
 
 
 class LandingPage(SimplePage):
+    # Inicia os atributos da classe
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
 
+    # Constroi a lading page,, essa é bem intuitiva
     def build_body(self):
         h = self.brython.html
         tt1 = h.P("A R V O R A", Class="title main-text has-text-weight-bold")
         tt2 = h.P("Brain Computational School", Class="title is-1 main-text")
         # phr = phrase
         phr = h.P("Seu lugar de pesquisas de neurociência!", Class='main-text title is-3')
+        # retorna uma div com todos os elementos da página
         return h.DIV((tt1, tt2, phr))
 
 
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
+        # inicia o self.form, self.login e o self.passd
         self.form = self.login = self.passd = None
 
     def click(self, ev=None):
         _ = self
         ev.preventDefault()
+        # ev.target pega o id do target
         form = ev.target
         # USER_OPTIONS = form.elements["username"].value
+        # Aqui ele pega o valor inserido no elemento do form com o nome de username
         Arvora.ARVORA.user(form.elements["username"].value)
+        # Aqui ele volta a mostrar a página do main
         SimplePage.PAGES["_MAIN_"].show()
 
         # self.brython.alert(form.elements["username"].value, form.elements["password"])
@@ -128,13 +138,16 @@ class LoginPage(SimplePage):
     def build_body(self):
         h = self.brython.html
         btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit")
+        # Aqui ele faz os inputs de senha e login e coloca um label neles. Não sei pq tem que ser self.login
         self.passd = h.INPUT(Id="password", Class="input is-primary", type="password", placeholder="Password")
         psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
         self.login = h.INPUT(Id="username", Class="input is-primary", type="text", placeholder="Email address")
         eid = h.DIV(h.LABEL("Email", For="email") + self.login, Class="field")
         form = h.FORM((eid, psw, btn), Class="column is-4 box")
+        # Aqui ele bota um submit ao apertar o botão do form e chama a função click
         form.bind("submit", self.click)
 
+        # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
         return cls
 
@@ -143,19 +156,18 @@ class KnowledgePage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
 
-    # aqui quero adicionar um event listener e quando o botão for clicado eu quero abrir a página da classe WritingPage
-    # document[''].bind("click", WritingPage )
-
     def build_body(self):
         h = self.brython.html
-        document = self.brython.document
 
+        # Dentro do body tem uma função click que é um event listener (basicamente algo que fica ouvindo um evento)
         def click(ev):
+            # aqui se checa se o id do lugar clicado é um ou outro, e dependendo de qual botão foi, ele mostra a página correspondente
             if ev.target.id == 'Draft':
                 SimplePage.PAGES["_RASCUNHO_"].show()
             elif ev.target.id == 'Writing':
                 SimplePage.PAGES["_ESCREVER_"].show()
 
+        # Aqui há a criação de uma barra de pesquisa de enfeite
         search_bar = h.FORM(h.DIV(h.INPUT(Id='local_search',
                                           Class='input is-white has-fixed-size block has-background-grey has-text-success-light mb-4 white-placeholder',
                                           placeholder='Pesquisar artigos'), Class='column'))
@@ -164,9 +176,11 @@ class KnowledgePage(SimplePage):
         artigos = [{"title": "Artigo",
                     "abstract": """Feeling unsure of my naked bodyStand back, watch it taking shapeWondering why I don't look like BarbieThey say boys like girls with a tiny waistNow my mama's preaching to make sure I'm pureBut I never really cared 'bout this shit beforeLook around the room to whoever wants me Got boys acting like they ain't seen skin beforeGot sent home to change 'cause my skirt is too short It's my fault, it's my fault 'cause I put icing on top Now, the boys want a taste of the strawberry shortcake That's my bad, that's my bad, no one told them not to grab Now, the boys want a taste of the strawberry shortcakeGotta make sure that my legs are shinyHot wax melting, burn my skinPeople all around me watching closely'Cause it's how I look and not what I thinkMikey's eyes seem to be g"""},
                    {"title": "Artigo 2", "abstract": "resumo 2"}, {"title": "Artigo 3", "abstract": "resumo 3"}]
+
         # todos os artigos
         toa = []
 
+        # Loop que faz aparecer todos os artigos na página
         for a in artigos:
             title = a["title"]
             abstract = a["abstract"]
@@ -177,7 +191,14 @@ class KnowledgePage(SimplePage):
                                   h.BUTTON("Perguntar", Class="button is-info mx-4"),
                                   h.BUTTON("Artigos Filhos", Class="button")), Class='columns mx-4 mt-5')
 
-            toa.append(h.DIV((tit, abst, post_buttons), Class='box'))
+            paper_div = h.DIV((tit, abst, post_buttons), Class='box')
+
+            #Tentativa falha de transformar a div do artigo em um link com a esperança de redirecionar o usuário à página do artigo quando ele clicar em qualquer lugar do artigo na página de conhecimento
+            paper_link = h.A(paper_div, href='https://google.com')
+            print("foi")
+            print(type(paper_link))
+
+            toa.append(paper_link, Class='box')
 
         posts = h.DIV((search_bar, toa), Class="column body-columns")
 
@@ -185,6 +206,7 @@ class KnowledgePage(SimplePage):
         btn2 = h.BUTTON("Escreva seu artigo", Id='Writing',
                         Class="button has-background-grey-light is-4 block is-fullwidth mt-5")
         side_tab = h.DIV((btn2, btn1), Class='column is-3')
+        # Botando um bind para que os botões recebam a função de click lá de cima
         side_tab.bind("click", click)
 
         wrapper = h.DIV((side_tab, posts), Class="columns")
@@ -197,17 +219,6 @@ class WritingPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
         self.form = self.text = None
-
-    def click(self, ev=None):
-        _ = self
-        ev.preventDefault()
-        form = ev.target
-        # USER_OPTIONS = form.elements["username"].value
-        Arvora.ARVORA.user(form.elements["username"].value)
-        SimplePage.PAGES["_MAIN_"].show()
-
-        # self.brython.alert(form.elements["username"].value, form.elements["password"])
-        # print(self.login.value, self.passd.type)
 
     # construindo a página em si
     def build_body(self):
@@ -246,6 +257,7 @@ class WritingPage(SimplePage):
 
 
 class DraftPage(SimplePage):
+    #adicionando do init
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
 
@@ -258,6 +270,7 @@ class DraftPage(SimplePage):
         # todos os rascunhos
         tor = []
 
+        # Loop que mostra as páginas de rascunho
         for d in drafts:
             title = d["title"]
             abstract = d["abstract"]
@@ -273,7 +286,6 @@ class DraftPage(SimplePage):
 
         return wrp
 
-
 class SearchPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
@@ -281,16 +293,18 @@ class SearchPage(SimplePage):
     def build_body(self):
         h = self.brython.html
 
+        #Criando a barra de pesquisas falsa
         search_bar = h.FORM(h.DIV(h.INPUT(Id='local_search',
                                           Class='input is-white has-fixed-size block has-background-grey has-text-success-light mb-4 white-placeholder',
                                           placeholder='Pesquise de tudo aqui!!'), Class='column'))
 
-        # exemplos de rascunho
+        # exemplos de pesquisas
         drafts = [{"title": "Pesquisa 1", "abstract": "resumo"}, {"title": "Pesquisa 2", "abstract": "resumo 2"},
                   {"title": "Pesquisa 3", "abstract": "resumo 3"}]
-        # todos os rascunhos
+        # todas os pesquisas
         tor = []
 
+        # Loop que faz aparecer todas as pesquisas na tela
         for d in drafts:
             title = d["title"]
             abstract = d["abstract"]
@@ -309,17 +323,22 @@ class SearchPage(SimplePage):
 class Arvora:
     ARVORA = None
 
+    # Iniciando os atributos da classe
     def __init__(self, br):
+        #Separando os usuários entre admin e user
         self.users = dict(ADMIN="admin", USER="user")
         self.brython = br
         self.current_user = None
         Arvora.ARVORA = self
 
+    #Criando a função do usuário atual
     def user(self, current_user):
         self.current_user = current_user
 
+    #Função para iniciar
     def start(self):
         br = self.brython
+        # Aqui as o nome das páginas são lincadas com as respectivas classes das páginas
         SimplePage.PAGES = {f"_{page}_": SimplePage(br) for page, _ in MENU_OPTIONS}
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
