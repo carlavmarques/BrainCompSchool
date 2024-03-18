@@ -22,7 +22,7 @@ Changelog
 |   `Labase <http://labase.selfip.org/>`_ - `NCE <http://portal.nce.ufrj.br>`_ - `UFRJ <https://ufrj.br/>`_.
 
 """
-MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA INTERAÇÃO LOGIN USER RASCUNHO ESCREVER ARTIGO".split(),
+MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA INTERAÇÃO LOGIN USER".split(),
                      "bars-progress book book-medical hands-asl-interpreting right-to-bracket user".split()))
 
 
@@ -58,7 +58,7 @@ class SimplePage:
         sec = h.SECTION((hea, hby), Class=f"hero {self.hero_class} is-fullheight")
         return sec
 
-    def navigator(self, menu, nav="is-fixed-top"):  #Alteração do navbar pois futuramente tentarei mudar suas classe dependendo da aba selecionada
+    def navigator(self, menu):
         h = self.brython.html
 
         def do_item(title=None, icon=None):
@@ -72,7 +72,7 @@ class SimplePage:
         self.items = [do_item(**item) for item in menu]
         end = h.DIV(self.items[-1], Class="navbar-end")
         self.items = items = [nbr]+self.items[:-1]+[end]
-        nav = h.NAV(items, Class=f"navbar {nav}")
+        nav = h.NAV(items, Class=f"navbar")
         fna = h.DIV(h.DIV(nav, Class="container"), Class="first_nav")
         return fna
 
