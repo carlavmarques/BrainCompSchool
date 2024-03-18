@@ -1,7 +1,7 @@
 ..
     # This file is part of  program Arvora
-    # Copyright © 2023  Carlo Oliveira <carlo@nce.ufrj.br>,
-    # `Labase <http://labase.selfip.org/>`_ - `NCE <http://portal.nce.ufrj.br>`_ - `UFRJ <https://ufrj.br/>`_.
+    # Copyright © 2023  Carla Verônica Machado Marques <carlaveronica@nce.ufrj.br>,
+    # `Rubra Lab <http://dgp.cnpq.br/dgp/espelhogrupo/9692735321003642>`_ - `Lagint <http://dgp.cnpq.br/dgp/espelhogrupo/6713091517260475>`_ -`Labase <http://labase.selfip.org/>`_ - `NCE <http://portal.nce.ufrj.br>`_ - `UFRJ <https://ufrj.br/>`_.
     # SPDX-License-Identifier: `GNU General Public License v3.0 or later <http://is.gd/3Udt>`_
 Brain Computational School
 ===============================
@@ -34,15 +34,25 @@ Added
     - :py:func:`main` Called entry page to start the application.
 
 
-Laboratório de Automação de Sistemas Educacionais
+RUBRA LAB - Laboratório de Neuropsicologia Computacional Rússia-Brasil
+LAGINT - Laboratório de Games Inteligentes
+LABASE - Laboratório de Automaçã de Sistemas Educacionais
 -------------------------------------------------
 
-**Copyright © Carlo Olivera**
+**Copyright © Carla Verônica Machado Marques**
+
+RUBRA_ LAB_ - NCE_ - UFRJ_
+
+LAGINT_ - NCE_ - UFRJ_
 
 LABASE_ - NCE_ - UFRJ_
 
+|RUBRA LAB|
+|LAGINT|
 |LABASE|
 
+.. _RUBRA LAB: http://dgp.cnpq.br/dgp/espelhogrupo/9692735321003642
+.. _LAGINT: http://dgp.cnpq.br/dgp/espelhogrupo/6713091517260475
 .. _LABASE: http://labase.activufrj.nce.ufrj.br
 .. _NCE: http://nce.ufrj.br
 .. _UFRJ: http://www.ufrj.br
@@ -50,6 +60,13 @@ LABASE_ - NCE_ - UFRJ_
 .. _24.03: https://github.com/carlotolla/nanite/releases
 .. _Unreleased: https://github.com/carlotolla/nanite/releases
 
+
+.. |RUBRA LAB| image:: https://imgur.com/a/pZF1oLw.png
+   :target: dgp.cnpq.br/dgp/espelhogrupo/9692735321003642
+   :alt: RUBRA LAB
+.. |LAGINT| image:: https://imgur.com/a/DSdWfwV.jpg
+   :target: dgp.cnpq.br/dgp/espelhogrupo/6713091517260475
+   :alt: LAGINT
 .. |LABASE| image:: https://cetoli.gitlab.io/spyms/image/labase-logo-8.png
    :target: http://labase.activufrj.nce.ufrj.br
    :alt: LABASE
