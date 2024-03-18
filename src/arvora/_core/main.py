@@ -114,6 +114,17 @@ class LandingPage(SimplePage):
         # retorna uma div com todos os elementos da página
         return h.DIV((tt1, tt2, phr))
 
+class PesquisaPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_pesquisa")
+
+    def build_body(self):
+        h = self.brython.html
+        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
+        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
+        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+        but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
+        return h.DIV((img,pes,but))
 
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
@@ -341,6 +352,7 @@ class Arvora:
         # Aqui as o nome das páginas são lincadas com as respectivas classes das páginas
         SimplePage.PAGES = {f"_{page}_": SimplePage(br) for page, _ in MENU_OPTIONS}
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
+        SimplePage.PAGES["_PESQUISA_"] = PesquisaPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
         # SimplePage.PAGES['_PERGUNTAS_'] = QuestionsPage(br)
         SimplePage.PAGES["_CONHECIMENTO_"] = KnowledgePage(br)
