@@ -72,7 +72,7 @@ class SimplePage:
         self.items = [do_item(**item) for item in menu]
         end = h.DIV(self.items[-1], Class="navbar-end")
         self.items = items = [nbr]+self.items[:-1]+[end]
-        nav = h.NAV(items, Class=f"navbar")
+        nav = h.NAV(items, Class="navbar")
         fna = h.DIV(h.DIV(nav, Class="container"), Class="first_nav")
         return fna
 
