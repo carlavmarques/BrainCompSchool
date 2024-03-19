@@ -180,7 +180,6 @@ class KnowledgePage(SimplePage):
         # todos os artigos
         toa = []
 
-        # Loop que faz aparecer todos os artigos na página
         for a in artigos:
             title = a["title"]
             abstract = a["abstract"]
@@ -191,34 +190,33 @@ class KnowledgePage(SimplePage):
                                   h.BUTTON("Perguntar", Class="button is-info mx-4"),
                                   h.BUTTON("Artigos Filhos", Class="button")), Class='columns mx-4 mt-5')
 
-            paper_div = h.DIV((tit, abst, post_buttons), Class='box')
-
-            #Tentativa falha de transformar a div do artigo em um link com a esperança de redirecionar o usuário à página do artigo quando ele clicar em qualquer lugar do artigo na página de conhecimento
-            paper_link = h.A(paper_div, href='https://google.com')
-            print("foi")
-            print(type(paper_link))
-
-            toa.append(paper_link, Class='box')
+            toa.append(h.DIV((tit, abst, post_buttons), Class='box'))
 
         posts = h.DIV((search_bar, toa), Class="column body-columns")
 
         btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-grey-light is-4 block is-fullwidth")
         btn2 = h.BUTTON("Escreva seu artigo", Id='Writing',
-                        Class="button has-background-grey-light is-4 block is-fullwidth mt-5")
+                        Class="button has-background-grey-light is-4 block is-fullwidth")
         side_tab = h.DIV((btn2, btn1), Class='column is-3')
-        # Botando um bind para que os botões recebam a função de click lá de cima
         side_tab.bind("click", click)
 
         wrapper = h.DIV((side_tab, posts), Class="columns")
 
         return wrapper
 
-
 class WritingPage(SimplePage):
     # Adicionando o init
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
         self.form = self.text = None
+
+    def click(self, ev=None):
+        _ = self
+        ev.preventDefault()
+        form = ev.target
+        # USER_OPTIONS = form.elements["username"].value
+        Arvora.ARVORA.user(form.elements["username"].value)
+        SimplePage.PAGES["_MAIN_"].show()
 
     # construindo a página em si
     def build_body(self):
