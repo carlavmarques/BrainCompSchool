@@ -426,9 +426,9 @@ class KnowledgePage(SimplePage):
 
         posts = h.DIV((search_bar, toa), Class="column body-columns")
 
-        btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-grey-light is-4 block is-fullwidth")
+        btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-white is-4 block is-fullwidth")
         btn2 = h.BUTTON("Escreva seu artigo", Id='Writing',
-                        Class="button has-background-grey-light is-4 block is-fullwidth")
+                        Class="button has-background-white is-4 block is-fullwidth")
         side_tab = h.DIV((btn2, btn1), Class='column is-3')
         side_tab.bind("click", click)
 
@@ -460,7 +460,7 @@ class WritingPage(SimplePage):
 
         # O campo onde as pessoas pode escrever o texto delas, esse monte de tag é o bulma. Ela tem os placeholders e o rows que é a quantidade padrão de linhas
         self.text = h.TEXTAREA(
-            Class="textarea is-success has-fixed-size block mb-4 mt-0 has-background-grey has-text-success-light is-medium white-placeholder",
+            Class="textarea is-success has-fixed-size block mb-4 mt-0 has-background-grey has-text-success-light is-medium",
             rows='17', type="text", placeholder="Comece a escrever aqui!")
 
         # Aqui eu criei uma div para armazenar todos os componentes da página
