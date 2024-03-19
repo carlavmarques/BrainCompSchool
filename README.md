@@ -16,7 +16,7 @@ Um Ambiente virtual dedicado ao ensino e pesquisa com uma interface intuitiva.
 
 **Direitos Autorais © Carla Verônica Machado Marques**
 
-Este projeto faz parte do [RU.BRA LAB](dgp.cnpq.br/dgp/espelhogrupo/9692735321003642), do [LAGINT](dgp.cnpq.br/dgp/espelhogrupo/6713091517260475) e do [LABASE](http://labase.activufrj.nce.ufrj.br).
+Este projeto faz parte do [RU.BRA LAB](http://dgp.cnpq.br/dgp/espelhogrupo/9692735321003642), do [LAGINT](http://dgp.cnpq.br/dgp/espelhogrupo/6713091517260475) e do [LABASE](http://labase.activufrj.nce.ufrj.br).
 no [NCE](http://nce.ufrj.br) - [UFRJ](https://ufrj.br).
 
 ## Autores
