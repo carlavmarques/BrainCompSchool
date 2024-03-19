@@ -282,7 +282,6 @@ class KnowledgePage(SimplePage):
 
         card = ""
 
-        Dialog = self.brython.Dialog
         InfoDialog= self.brython.InfoDialog
 
         # def ok(ev):
@@ -296,7 +295,6 @@ class KnowledgePage(SimplePage):
         def show_article(ev):
             SimplePage.PAGES["_ARTIGO_"].show()
         def show_dialog(ev):
-            comment = Dialog("Test", ok_cancel=True)
             comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
             comment.bind("click", comment.ok_button)
 
@@ -340,12 +338,9 @@ class Article(SimplePage):
         super().__init__(brython, menu, hero="main_hero")
     def build_body(self):
         h = self.brython.html
-        Dialog = self.brython.Dialog
-        InfoDialog = self.brython.InfoDialog
         user = users[0]
 
         def show_dialog(ev):
-            comment = Dialog("Test", ok_cancel=True)
             comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
             comment.bind("click", comment.ok_button)
 
