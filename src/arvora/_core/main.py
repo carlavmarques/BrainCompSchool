@@ -282,7 +282,6 @@ class KnowledgePage(SimplePage):
 
         card = ""
 
-        Dialog = self.brython.Dialog
         InfoDialog= self.brython.InfoDialog
 
         # def ok(ev):
@@ -296,7 +295,6 @@ class KnowledgePage(SimplePage):
         def show_article(ev):
             SimplePage.PAGES["_ARTIGO_"].show()
         def show_dialog(ev):
-            comment = Dialog("Test", ok_cancel=True)
             comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
             comment.bind("click", comment.ok_button)
 
@@ -340,12 +338,9 @@ class Article(SimplePage):
         super().__init__(brython, menu, hero="main_hero")
     def build_body(self):
         h = self.brython.html
-        Dialog = self.brython.Dialog
-        InfoDialog = self.brython.InfoDialog
         user = users[0]
 
         def show_dialog(ev):
-            comment = Dialog("Test", ok_cancel=True)
             comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
             comment.bind("click", comment.ok_button)
 
@@ -417,7 +412,6 @@ class KnowledgePage(SimplePage):
         # todos os artigos
         toa = []
 
-        # Loop que faz aparecer todos os artigos na página
         for a in artigos:
             title = a["title"]
             abstract = a["abstract"]
@@ -428,34 +422,33 @@ class KnowledgePage(SimplePage):
                                   h.BUTTON("Perguntar", Class="button is-info mx-4"),
                                   h.BUTTON("Artigos Filhos", Class="button")), Class='columns mx-4 mt-5')
 
-            paper_div = h.DIV((tit, abst, post_buttons), Class='box')
-
-            #Tentativa falha de transformar a div do artigo em um link com a esperança de redirecionar o usuário à página do artigo quando ele clicar em qualquer lugar do artigo na página de conhecimento
-            paper_link = h.A(paper_div, href='https://google.com')
-            print("foi")
-            print(type(paper_link))
-
-            toa.append(paper_link, Class='box')
+            toa.append(h.DIV((tit, abst, post_buttons), Class='box'))
 
         posts = h.DIV((search_bar, toa), Class="column body-columns")
 
-        btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-grey-light is-4 block is-fullwidth")
+        btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-white is-4 block is-fullwidth")
         btn2 = h.BUTTON("Escreva seu artigo", Id='Writing',
-                        Class="button has-background-grey-light is-4 block is-fullwidth mt-5")
+                        Class="button has-background-white is-4 block is-fullwidth")
         side_tab = h.DIV((btn2, btn1), Class='column is-3')
-        # Botando um bind para que os botões recebam a função de click lá de cima
         side_tab.bind("click", click)
 
         wrapper = h.DIV((side_tab, posts), Class="columns")
 
         return wrapper
 
-
 class WritingPage(SimplePage):
     # Adicionando o init
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
         self.form = self.text = None
+
+    def click(self, ev=None):
+        _ = self
+        ev.preventDefault()
+        form = ev.target
+        # USER_OPTIONS = form.elements["username"].value
+        Arvora.ARVORA.user(form.elements["username"].value)
+        SimplePage.PAGES["_MAIN_"].show()
 
     # construindo a página em si
     def build_body(self):
@@ -467,7 +460,7 @@ class WritingPage(SimplePage):
 
         # O campo onde as pessoas pode escrever o texto delas, esse monte de tag é o bulma. Ela tem os placeholders e o rows que é a quantidade padrão de linhas
         self.text = h.TEXTAREA(
-            Class="textarea is-success has-fixed-size block mb-4 mt-0 has-background-grey has-text-success-light is-medium white-placeholder",
+            Class="textarea is-success has-fixed-size block mb-4 mt-0 has-background-grey has-text-success-light is-medium",
             rows='17', type="text", placeholder="Comece a escrever aqui!")
 
         # Aqui eu criei uma div para armazenar todos os componentes da página
