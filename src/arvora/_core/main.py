@@ -292,8 +292,10 @@ class KnowledgePage(SimplePage):
                 SimplePage.PAGES["_ESCREVER_"].show()
         def show_article(ev):
             SimplePage.PAGES["_ARTIGO_"].show()
+
         
         search_bar = h.FORM(h.DIV(h.INPUT(type="text", Class="input is-success is-rounded mt-5 input-icon green-placeholder", placeholder="Pesquise aqui"), Class="column"))
+        
 
         for user in users:
 
@@ -332,6 +334,7 @@ class Article(SimplePage):
     def build_body(self):
         h = self.brython.html
         user = users[0]
+
 
         card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"),
                             Class="card-image image is-4by3")
@@ -395,6 +398,7 @@ class WritingPage(SimplePage):
         # O campo onde as pessoas pode escrever o texto delas, esse monte de tag é o bulma. Ela tem os placeholders e o rows que é a quantidade padrão de linhas
         self.text = h.TEXTAREA(
             Class="textarea is-success has-fixed-size block mb-4 mt-0 has-text-success-dark is-medium",
+
             rows='17', type="text", placeholder="Comece a escrever aqui!")
         # Aqui eu criei uma div para armazenar todos os componentes da página
         div = h.DIV()
