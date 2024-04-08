@@ -1,2 +1,8 @@
-tinydb==4.8.0
 tornado==6.4
+pandas>=2.0.3
+numpy==1.26.4
+seaborn>=0.12.2
+matplotlib>=3.7.2
+sphinx_rtd_theme==2.0.0
+sphinx_toolbox==3.5.0
+pycouchdb~=1.14.2
