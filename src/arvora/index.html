@@ -18,7 +18,7 @@ PDX-License-Identifier:** `GNU General Public License v3.0 or later <http://is.g
     <script type=" text/javascript " src=" https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js "></script>
     <style>
     .main_hero {
-        background-image: url('/src/arvora/_media/arvorab.svg');
+        background-image: url('/src/arvora/_media/desktop.svg');
         background-size: cover;
     }
     .none_hero {
@@ -26,9 +26,23 @@ PDX-License-Identifier:** `GNU General Public License v3.0 or later <http://is.g
         background-size: cover;
     }
     .main-text {
-      color: forestgreen;
+      color: lightgreen;
         font-size: 6em;
+      text-shadow: 4px 4px 3px gray;
+    }
+
+     .main-subtext {
+        color: darkgrey;
+           font-size: 6em;
       text-shadow: 4px 4px 12px #29211b;
+     }
+
+    .incText {
+        text-shadow: 2px 2px 2px gray;
+    }
+
+    .green-placeholder::placeholder{
+        color: green;
     }
     .main_pesquisa{
         background-image: url('/src/arvora/_media/desktop.svg');
@@ -46,6 +60,7 @@ PDX-License-Identifier:** `GNU General Public License v3.0 or later <http://is.g
         background-position: calc(100% - 10px) center;
         padding-left: 30px; /* espaço para o ícone */
   }
+
     </style>
 
 </head>
@@ -53,6 +68,7 @@ PDX-License-Identifier:** `GNU General Public License v3.0 or later <http://is.g
     <div id="pydiv"></div>
     <script type="text/python">
         from browser import window, document, alert, html, timer
+        from browser.widgets.dialog import InfoDialog, Dialog
         from _core.main import main
         class Br:
             window, document, alert, html, timer =(
