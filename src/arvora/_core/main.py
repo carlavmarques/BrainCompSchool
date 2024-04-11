@@ -126,6 +126,15 @@ class PesquisaPage(SimplePage):
         but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
         return h.DIV((img,pes,but))
 
+class CadastroPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_pesquisa")
+
+    def build_body(self):
+        h = self.brython.html
+        teste = h.H1('DEU CERTO')
+        return h.DIV(teste)
+
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
@@ -147,16 +156,23 @@ class LoginPage(SimplePage):
         # print(self.login.value, self.passd.type)
 
     def build_body(self):
+        def click(ev):
+            if ev.target.id == "cadastro":
+                SimplePage.PAGES["_CADASTRO_"].show()
+
         h = self.brython.html
-        btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit")
+        btn = h.BUTTON("Login", Class="button is-primary is-fullwidth mt-2", type="submit")
         # Aqui ele faz os inputs de senha e login e coloca um label neles. Não sei pq tem que ser self.login
         self.passd = h.INPUT(Id="password", Class="input is-primary", type="password", placeholder="Password")
         psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
         self.login = h.INPUT(Id="username", Class="input is-primary", type="text", placeholder="Email address")
         eid = h.DIV(h.LABEL("Email", For="email") + self.login, Class="field")
-        form = h.FORM((eid, psw, btn), Class="column is-4 box")
+        link = h.A("Se cadastre aqui", id='cadastro')
+        link.bind("click", click)
+        form = h.FORM((eid, psw,link, btn), Class="column is-4 box")
         # Aqui ele bota um submit ao apertar o botão do form e chama a função click
         form.bind("submit", self.click)
+
 
         # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
@@ -470,6 +486,7 @@ class Arvora:
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
         SimplePage.PAGES["_PESQUISA_"] = PesquisaPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
+        SimplePage.PAGES['_CADASTRO_'] = CadastroPage(br)
  
         SimplePage.PAGES["_PROJETO_"] = ProjectPage(br)
         SimplePage.PAGES["_CONHECIMENTO_"] = KnowledgePage(br)
