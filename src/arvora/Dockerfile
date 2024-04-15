@@ -1,5 +1,5 @@
 FROM python:3.12.2-slim-bullseye
-LABEL labase.author="carlo@ufrj.br"
+LABEL labase.author="juliabarbosa@poli.ufrj.br"
 LABEL version="24.03a"
 LABEL description="Arvora - Brain Computational School"
 COPY ./requirements.txt /src

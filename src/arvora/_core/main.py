@@ -120,7 +120,7 @@ class PesquisaPage(SimplePage):
 
     def build_body(self):
         h = self.brython.html
-        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
+        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="")
         log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
         pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
         but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
@@ -132,8 +132,43 @@ class CadastroPage(SimplePage):
 
     def build_body(self):
         h = self.brython.html
-        teste = h.H1('DEU CERTO')
-        return h.DIV(teste)
+        tit = h.P('Cadastro', Class="title is-1 is-spaced", style="font-family: fantasy;")
+
+        #nome
+        nom = h.LABEL('Nome', Class="label mt-4", style="text-align: left;")
+        nomI = h.INPUT(Class="input is-success", type="text", placeholder="ex.: Alex Smith")
+        nomC = h.DIV(nomI, Class="control")
+        nomD = h.DIV((tit,nom, nomC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finald = h.DIV(nomD,  Class="columns is-mobile")
+
+        #email
+        ema = h.LABEL('E-mail', Class="label mt-4", style="text-align: left;")
+        emaI = h.INPUT(Class="input is-success", type="text", placeholder="ex.: Alex Smith")
+        emaC = h.DIV(emaI, Class="control")
+        emaD = h.DIV((ema, emaC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finale = h.DIV(emaD,  Class="columns is-mobile")
+
+        #telefone
+        tel = h.LABEL('Telefone', Class="label mt-4", style="text-align: left;")
+        telI = h.INPUT(Class="input is-success", type="text", placeholder="ex.: Alex Smith")
+        telC = h.DIV(telI, Class="control")
+        telD = h.DIV((tel, telC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalf = h.DIV(telD,  Class="columns is-mobile")
+
+        #senha
+        pas = h.LABEL('Senha', Class="label mt-4", style="text-align: left;")
+        pasI = h.INPUT(Class="input is-success", type="text", placeholder="ex.: Alex Smith")
+        pasC = h.DIV(pasI, Class="control")
+        pasD = h.DIV((pas, pasC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalg = h.DIV(pasD, Class="columns is-mobile")
+
+        #button
+        button = h.BUTTON("Salvar", Class="button is-success is-outlined")
+        buttonD = h.DIV(button, Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalh = h.DIV(buttonD, Class="columns is-mobile")
+
+
+        return h.DIV((finald, finale, finalf, finalg, finalh))
 
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
@@ -411,7 +446,7 @@ class WritingPage(SimplePage):
         # um botão para enviar o formulário
         btn1 = h.BUTTON("Enviar", Class="button is-success is-rounded mt-5 is-responsive block is-fullwidth", type="submit")
         btn2 = h.BUTTON("Deletar", Class="button is-danger is-rounded mt-5 is-responsive block is-fullwidth", type='submit')
-        # O campo onde as pessoas pode escrever o texto delas, esse monte de tag é o bulma. Ela tem os placeholders e o rows que é a quantidade padrão de linhas
+        # O campo onde as pessoas podem escrever o texto delas, esse monte de tag é o bulma. Ela tem os placeholders e o rows que é a quantidade padrão de linhas
         self.text = h.TEXTAREA(
             Class="textarea is-success has-fixed-size block mb-4 mt-0 has-text-success-dark is-medium",
 
