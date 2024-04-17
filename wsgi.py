@@ -98,6 +98,15 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
 
         return super(DirectoryHandler, cls).get_content(abspath, start=start, end=end)
 
+class ArticleSaveHandler(tornado.web.ResquestHandler):
+    def post(self):
+        self.write({"message":"socorro"})
+
+class ArticleLoadHandler(tornado.web.ResquestHandler):
+    def get(self):
+        self.write({"message":"socorro"})
+
+
 
 settings = {
     'debug': DEBUG,
@@ -106,7 +115,9 @@ settings = {
 }
 
 application = tornado.web.Application([
-    (r'/(.*)', DirectoryHandler, {'path': './'})
+    (r'/(.*)', DirectoryHandler, {'path': './'}),
+    (r'/save', ArticleSaveHandler),
+    (r'/load', ArticleLoadHandler)
 ], **settings)
 
 if __name__ == "__main__":

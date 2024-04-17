@@ -383,14 +383,34 @@ class WritingPage(SimplePage):
 
     def click(self, ev=None):
         _ = self
-        ev.preventDefault()
+        ajax = _.brython.ajax
         form = ev.target
+        title = form.elements["title"].value
+        body = form.elements["body"].value
+        data = {
+            "title": title,
+            "body": body
+        }
+        def on_complete(req):
+            if req.status == 200:
+                print("complete ok>>>> " + req.text)
+            else:
+                print("error detected>>>> " + req.text)
+
+        req = ajax.Ajax()
+        req.bind('complete', on_complete)
+        req.open('POST', '/save', True)
+        req.set_header('content-type', 'application/json')
+        req.send(data)
+
+
         # USER_OPTIONS = form.elements["username"].value
-        Arvora.ARVORA.user(form.elements["username"].value)
+        #Arvora.ARVORA.user(form.elements["username"].value)
         SimplePage.PAGES["_MAIN_"].show()
 
     # construindo a página em si
     def build_body(self):
+
         h = self.brython.html
         # um botão para enviar o formulário
         btn1 = h.BUTTON("Enviar", Class="button is-success is-rounded mt-5 is-responsive block is-fullwidth", type="submit")
@@ -398,7 +418,7 @@ class WritingPage(SimplePage):
         # O campo onde as pessoas pode escrever o texto delas, esse monte de tag é o bulma. Ela tem os placeholders e o rows que é a quantidade padrão de linhas
         self.text = h.TEXTAREA(
             Class="textarea is-success has-fixed-size block mb-4 mt-0 has-text-success-dark is-medium",
-
+            Id = "body",
             rows='17', type="text", placeholder="Comece a escrever aqui!")
         # Aqui eu criei uma div para armazenar todos os componentes da página
         div = h.DIV()
@@ -406,6 +426,7 @@ class WritingPage(SimplePage):
         tit = h.P("Escreva seu artigo", Class='title is-2 block hero p-2 has-text-success incText')
         # aut == autor. Aqui que a pessoa pode botar o nome dela ((só uma ideia inicial))
         aut = h.INPUT(placeholder='Autor',
+                      Id = "title",
                       Class='input is-success has-fixed-size block has-text-success-dark is-medium')
         # Aqui eu to adicionando tudo dentro da div, na ordem que eu quero que eles aparecam
         div <= (tit, aut, self.text)
@@ -424,13 +445,26 @@ class DraftPage(SimplePage):
 
     def build_body(self):
         h = self.brython.html
+        ajax = self.brython.ajax
+        draft = []
+        def refresh(ev):
+
+            def on_complete(req):
+                if req.status == 200:
+                    print("AA")
+            req = ajax.Ajax()
+            req.bind('complete', on_complete)
+            req.open('GET', '/load', True)
+            req.set_header('content-type', 'application/json')
+            req.send()
 
         # exemplos de rascunho
         drafts = [{"title": "Rascunho 1", "abstract": "resumo"}, {"title": "Rascunho 2", "abstract": "resumo 2"},
                   {"title": "Rascunho 3", "abstract": "resumo 3"}]
         # todos os rascunhos
         tor = []
-
+        refbt = h.BUTTON("Atualizar", Class="button is-primary is-rounded mt-5 is-responsive block is-fullwidth",
+                        type='submit').bind("click", refresh)
         # Loop que mostra as páginas de rascunho
         for d in drafts:
             title = d["title"]
@@ -443,7 +477,7 @@ class DraftPage(SimplePage):
             # todos os rascunhos
             tor.append(h.DIV((tit, abst, btnd), Class='box'))
 
-        wrp = h.DIV(tor, Class="column body-columns")
+        wrp = h.DIV((refbt,tor), Class="column body-columns")
 
         return wrp
 
