@@ -451,7 +451,7 @@ class DraftPage(SimplePage):
 
             def on_complete(req):
                 if req.status == 200:
-                    print("AA")
+                    print(req.text)
             req = ajax.Ajax()
             req.bind('complete', on_complete)
             req.open('GET', '/load', True)

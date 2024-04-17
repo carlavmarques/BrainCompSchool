@@ -24,6 +24,7 @@ Changelog
 """
 
 import os
+import json
 import tornado.web
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
@@ -98,11 +99,11 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
 
         return super(DirectoryHandler, cls).get_content(abspath, start=start, end=end)
 
-class ArticleSaveHandler(tornado.web.ResquestHandler):
+class SaveHandler(tornado.web.RequestHandler):
     def post(self):
-        self.write({"message":"socorro"})
+        print("sla")
 
-class ArticleLoadHandler(tornado.web.ResquestHandler):
+class LoadHandler(tornado.web.RequestHandler):
     def get(self):
         self.write({"message":"socorro"})
 
@@ -115,9 +116,9 @@ settings = {
 }
 
 application = tornado.web.Application([
+    (r'/save', SaveHandler),
+    (r'/load', LoadHandler),
     (r'/(.*)', DirectoryHandler, {'path': './'}),
-    (r'/save', ArticleSaveHandler),
-    (r'/load', ArticleLoadHandler)
 ], **settings)
 
 if __name__ == "__main__":
