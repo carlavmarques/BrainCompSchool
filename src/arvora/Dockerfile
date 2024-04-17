@@ -6,11 +6,11 @@ COPY ./requirements.txt /src
 RUN python3 -m pip install --upgrade pip
 RUN pip install tornado
 RUN mkdir -p /var/www/arvora
-ADD . /var/www/arvora
+ADD . /var/www/src/arvora
 
 RUN adduser --system arvorauser
 USER arvorauser
 
-WORKDIR /var/www/arvora
+WORKDIR /var/www/src/arvora
 #ENTRYPOINT ["top", "-b"]
 ENTRYPOINT ["python", "wsgi.py", "--port=8888", "--debug=True"]
