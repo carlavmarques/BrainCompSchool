@@ -3,7 +3,7 @@ version: '3.1'
 services:
   arvora:
     build: src/arvora
-    command: python3 -m wsgi --port=8888
+    command: python3 -m wsgi --port=8585
     restart: always
     ports:
       - "8888:8888"
