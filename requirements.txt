@@ -1,1 +1,1 @@
-pip install tornado
+tornado
