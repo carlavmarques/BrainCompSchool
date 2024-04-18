@@ -474,31 +474,32 @@ class WritingPage(SimplePage):
         super().__init__(brython, menu, hero="main_hero")
         self.form = self.text = None
 
-    def click(self, ev=None):
-        import json
-        _ = self
-        ajax = _.brython.ajax
-        form = ev.target
-        title = form.elements["title"].value
-        body = form.elements["body"].value
-        data = {
-            "title": title,
-            "body": body
-        }
-
+    def write(self, data=None):
+        ajax = self.brython.ajax
         def on_complete(req):
-            if req.status == 200:
-                print("complete ok>>>> " + req.text)
+            if req.status==200:
+                print("complete ok>>>> " + f'{req.status}')
             else:
-                print("error detected>>>> " + req.text)
+                print("error detected>>>> " + f'{req.status}')
 
         req = ajax.Ajax()
         req.bind('complete', on_complete)
         req.open('POST', '/save-article', True)
         req.set_header('content-type', 'application/json')
         req.send(json.dumps(data))
+    def click(self, ev=None):
 
+        _ = self
+        doc = _.brython.document
+        # form = doc['form'].html
+        title = doc["title"].value
+        body = doc["body"].value
+        data = {
+            "title": title,
+            "body": body
+        }
 
+        self.write(data)
         # USER_OPTIONS = form.elements["username"].value
         #Arvora.ARVORA.user(form.elements["username"].value)
         SimplePage.PAGES["_MAIN_"].show()
@@ -526,8 +527,9 @@ class WritingPage(SimplePage):
         # Aqui eu to adicionando tudo dentro da div, na ordem que eu quero que eles aparecam
         div <= (tit, aut, self.text)
         # aqui eu encapsulei a div com tudo e o botão em um formulário
-        form = h.FORM((div, btn1, btn2), Class="column")
-        form.bind("submit", self.click)
+        btn1.bind("click", self.click)
+        form = h.DIV((div, btn1, btn2), Id = 'form', Class="column")
+
         # inte == interactions. aqui eu adicionei tudo isso em outra div
         quest = h.DIV(form, Class="columns is-flex")
         # Aqui eu to retornando a div com todos os elementos
