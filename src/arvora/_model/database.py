@@ -5,6 +5,7 @@ import json
 LOCAL_FOLDER = (os.path.abspath(os.path.join(os.path.dirname(__file__))))
 db = TinyDB(os.path.join(LOCAL_FOLDER, 'brain.json'))
 
+
 class User:
     @classmethod
     def login(cls, form):
@@ -59,7 +60,5 @@ class Article:
     @classmethod
     def delete(cls):
         pass
-
-
 
 
