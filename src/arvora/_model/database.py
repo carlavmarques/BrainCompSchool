@@ -7,7 +7,7 @@ db = TinyDB(os.path.join(LOCAL_FOLDER, 'brain.json'))
 
 class Database:
     @classmethod
-    def get(cls):
+    def load_articles(cls):
         return db.all()
 
     @classmethod

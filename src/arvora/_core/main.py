@@ -134,19 +134,37 @@ class LoginPage(SimplePage):
 
     def click(self, ev=None):
         _ = self
+        ajax = _.brython.ajax
         ev.preventDefault()
         # ev.target pega o id do target
         form = ev.target
+
+        def on_complete(req):
+            if req.status == 200:
+                #loop for every user to check if exists
+
+                print(req.text)
+
+        req = ajax.Ajax()
+        req.bind('complete', on_complete)
+        req.open('GET', '/load-user', True)
+        req.set_header('content-type', 'application/json')
+        req.send()
+
         # USER_OPTIONS = form.elements["username"].value
         # Aqui ele pega o valor inserido no elemento do form com o nome de username
         Arvora.ARVORA.user(form.elements["username"].value)
         # Aqui ele volta a mostrar a página do main
-        SimplePage.PAGES["_MAIN_"].show()
+        #SimplePage.PAGES["_MAIN_"].show()
 
         # self.brython.alert(form.elements["username"].value, form.elements["password"])
         # print(self.login.value, self.passd.type)
 
     def build_body(self):
+        def click(ev):
+            if ev.target.id == "cadastro":
+                SimplePage.PAGES["_CADASTRO_"].show()
+
         h = self.brython.html
         btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit")
         # Aqui ele faz os inputs de senha e login e coloca um label neles. Não sei pq tem que ser self.login
@@ -154,14 +172,89 @@ class LoginPage(SimplePage):
         psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
         self.login = h.INPUT(Id="username", Class="input is-primary", type="text", placeholder="Email address")
         eid = h.DIV(h.LABEL("Email", For="email") + self.login, Class="field")
-        form = h.FORM((eid, psw, btn), Class="column is-4 box")
+        link = h.A("Se cadastre aqui", id='cadastro')
+        link.bind("click", click)
+        form = h.FORM((eid, psw, link, btn), Class="column is-4 box")
         # Aqui ele bota um submit ao apertar o botão do form e chama a função click
         form.bind("submit", self.click)
 
         # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
         return cls
+class CadastroPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_pesquisa")
 
+    def click(self, ev=None):
+        ajax = self.brython.ajax
+        form = ev.target
+
+        name = form.elements["name"].value
+        email = form.elements["email"].value
+        phone = form.elements["phone"].value
+        password = form.elements["password"].value
+
+        data = {
+            "name": name,
+            "email": email,
+            "phone": phone,
+            "password": password,
+        }
+
+        def on_complete(req):
+            if req.status == 200:
+                print("cadastro completo")
+            else:
+                print("error detected" + req.text)
+
+        req = ajax.Ajax()
+        req.bind("complete", on_complete)
+        req.open('POST', '/save-user', True)
+        req.set_header("content-Type", "application/json")
+        req.send(data)
+
+        SimplePage.PAGES["_MAIN_"].show()
+
+    def build_body(self):
+        h = self.brython.html
+        tit = h.P('Cadastro', Class="title is-1 is-spaced", style="font-family: fantasy;")
+
+        #nome
+        nom = h.LABEL('Nome', Class="label mt-4", style="text-align: left;")
+        nomI = h.INPUT(Id="name", Class="input is-success", type="text", placeholder="ex.: Alex Smith")
+        nomC = h.DIV(nomI, Class="control")
+        nomD = h.DIV((tit,nom, nomC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finald = h.DIV(nomD,  Class="columns is-mobile")
+
+        #email
+        ema = h.LABEL('E-mail', Class="label mt-4", style="text-align: left;")
+        emaI = h.INPUT(Id="email", Class="input is-success", type="text", placeholder="ex.: alexsmith@hhh.com")
+        emaC = h.DIV(emaI, Class="control")
+        emaD = h.DIV((ema, emaC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finale = h.DIV(emaD,  Class="columns is-mobile")
+
+        #telefone
+        tel = h.LABEL('Telefone', Class="label mt-4", style="text-align: left;")
+        telI = h.INPUT(Id="phone", Class="input is-success", type="text", placeholder="ex.: (00)0000-0000")
+        telC = h.DIV(telI, Class="control")
+        telD = h.DIV((tel, telC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalf = h.DIV(telD,  Class="columns is-mobile")
+
+        #senha
+        pas = h.LABEL('Senha', Class="label mt-4", style="text-align: left;")
+        pasI = h.INPUT(Id="password", Class="input is-success", type="text")
+        pasC = h.DIV(pasI, Class="control")
+        pasD = h.DIV((pas, pasC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalg = h.DIV(pasD, Class="columns is-mobile")
+
+        #button
+        button = h.BUTTON("Salvar", Class="button is-success is-outlined")
+        buttonD = h.DIV(button, Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalh = h.DIV(buttonD, Class="columns is-mobile")
+
+        form = h.FORM((finald, finale, finalf, finalg, finalh), Class="form")
+        form.bind("submit", self.click)
+        return form
 class ProjectPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
@@ -399,7 +492,7 @@ class WritingPage(SimplePage):
 
         req = ajax.Ajax()
         req.bind('complete', on_complete)
-        req.open('POST', '/save', True)
+        req.open('POST', '/save-article', True)
         req.set_header('content-type', 'application/json')
         req.send(data)
 
@@ -444,40 +537,52 @@ class DraftPage(SimplePage):
         super().__init__(brython, menu, hero="main_hero")
 
     def build_body(self):
+        import json
         h = self.brython.html
         ajax = self.brython.ajax
-        draft = []
+        tor = []
         def refresh(ev):
-
             def on_complete(req):
+                drafts = []
                 if req.status == 200:
+                    text = json.loads(req.text)
+                    try:
+                        drafts.append(text)
+                        show(drafts)
+                    except:
+                        drafts = [{"title": "Rascunho 1", "abstract": "resumo"},
+                                  {"title": "Rascunho 2", "abstract": "resumo 2"},
+                                  {"title": "Rascunho 3", "abstract": "resumo 3"}]
                     print(req.text)
             req = ajax.Ajax()
             req.bind('complete', on_complete)
-            req.open('GET', '/load', True)
+            req.open('GET', '/load-article', True)
             req.set_header('content-type', 'application/json')
             req.send()
+        def show(drafts):
+            tor = []
+            print("sdfhsdfiuoiooo12")
+            for d in drafts:
+                title = d.get("autor")
+                abstract = d.get("abstract")
 
-        # exemplos de rascunho
-        drafts = [{"title": "Rascunho 1", "abstract": "resumo"}, {"title": "Rascunho 2", "abstract": "resumo 2"},
-                  {"title": "Rascunho 3", "abstract": "resumo 3"}]
-        # todos os rascunhos
-        tor = []
-        refbt = h.BUTTON("Atualizar", Class="button is-primary is-rounded mt-5 is-responsive block is-fullwidth",
+                tit = h.P(title, Class='title is-4')
+                abst = h.P(abstract, Class='text is-6')
+                btnd = h.BUTTON("Deletar", Class="button is-danger is-rounded mt-5 is-responsive block is-fullwidth",
+                                type='submit')
+
+                # todos os rascunhos
+                tor.append(h.DIV((tit, abst, btnd), Class='box'))
+            wrp.clear()
+            wrp <= h.DIV((bt, tor), Class="column body-columns")
+
+            return wrp
+
+        bt = h.BUTTON("Atualizar", Class="button is-primary is-rounded mt-5 is-responsive block is-fullwidth",
                         type='submit').bind("click", refresh)
         # Loop que mostra as páginas de rascunho
-        for d in drafts:
-            title = d["title"]
-            abstract = d["abstract"]
 
-            tit = h.P(title, Class='title is-4')
-            abst = h.P(abstract, Class='text is-6')
-            btnd = h.BUTTON("Deletar", Class="button is-danger is-rounded mt-5 is-responsive block is-fullwidth", type='submit')
-
-            # todos os rascunhos
-            tor.append(h.DIV((tit, abst, btnd), Class='box'))
-
-        wrp = h.DIV((refbt,tor), Class="column body-columns")
+        wrp = h.DIV((bt,tor), Class="column body-columns")
 
         return wrp
 
@@ -504,7 +609,7 @@ class Arvora:
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
         SimplePage.PAGES["_PESQUISA_"] = PesquisaPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
- 
+        SimplePage.PAGES['_CADASTRO_'] = CadastroPage(br)
         SimplePage.PAGES["_PROJETO_"] = ProjectPage(br)
         SimplePage.PAGES["_CONHECIMENTO_"] = KnowledgePage(br)
         SimplePage.PAGES["_ARTIGO_"] = Article(br)
