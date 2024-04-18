@@ -25,7 +25,7 @@ Changelog
 
 import os
 import json
-from src.arvora._model.database import Database as DS
+import src.arvora._model.database as DS
 import tornado.web
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
@@ -101,17 +101,23 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
         return super(DirectoryHandler, cls).get_content(abspath, start=start, end=end)
 
 class ArticleHandler(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header("Content-Type", 'application/json')
     def get(self):
-        self.write(json.dumps(DS.load_articles()))
+        self.write(json.dumps(DS.Article.load_articles()))
     def post(self):
-        print("sla")
+        data = self.request.body
+        DS.Article.insert(data)
+        self.write(json.dumps({"message": "Article saved"}))
 
 
 class UserHandler(tornado.web.RequestHandler):
     def get(self, username):
         pass
     def post(self):
-        print("sla")
+        data = self.request.body
+        DS.User.sign_up(data)
+        self.write(json.dumps({"message": "User created successfully"}))
 
 
 

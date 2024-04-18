@@ -26,7 +26,7 @@ Changelog
 MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA PERGUNTAS LOGIN USER RASCUNHO ESCREVER ARTIGO".split(),
                          "bars-progress book book-medical question right-to-bracket user".split()))
 
-
+import json
 # Aqui uma base de página é criado.
 class SimplePage:
     # Essa classe tem um dicionário de páginas
@@ -186,6 +186,7 @@ class CadastroPage(SimplePage):
         super().__init__(brython, menu, hero="main_pesquisa")
 
     def click(self, ev=None):
+
         ajax = self.brython.ajax
         form = ev.target
 
@@ -211,9 +212,9 @@ class CadastroPage(SimplePage):
         req.bind("complete", on_complete)
         req.open('POST', '/save-user', True)
         req.set_header("content-Type", "application/json")
-        req.send(data)
+        req.send(json.dumps(data))
 
-        SimplePage.PAGES["_MAIN_"].show()
+        #SimplePage.PAGES["_MAIN_"].show()
 
     def build_body(self):
         h = self.brython.html
@@ -371,13 +372,12 @@ class KnowledgePage(SimplePage):
         super().__init__(brython, menu, hero="main_hero")
 
     def build_body(self):
+        import json
         h = self.brython.html
 
         card = ""
 
-        # def ok(ev):
-        #     comment_text =  comment.select_one("INPUT").value
-        #     comment.close()
+
         def click(ev):
             if ev.target.id == "Draft":
                 SimplePage.PAGES["_RASCUNHO_"].show()
@@ -386,7 +386,6 @@ class KnowledgePage(SimplePage):
         def show_article(ev):
             SimplePage.PAGES["_ARTIGO_"].show()
 
-        
         search_bar = h.FORM(h.DIV(h.INPUT(type="text", Class="input is-success is-rounded mt-5 input-icon green-placeholder", placeholder="Pesquise aqui"), Class="column"))
         
 
@@ -466,6 +465,7 @@ class Article(SimplePage):
         card = h.DIV((card_img, card_content, card_buttons, comment_section), Class="box")
         post = h.DIV(card, Class="column is-half is-offset-one-quarter ")
         posts = h.DIV(post, Class="columns body-columns")
+
         return posts
 
 class WritingPage(SimplePage):
@@ -475,6 +475,7 @@ class WritingPage(SimplePage):
         self.form = self.text = None
 
     def click(self, ev=None):
+        import json
         _ = self
         ajax = _.brython.ajax
         form = ev.target
@@ -484,6 +485,7 @@ class WritingPage(SimplePage):
             "title": title,
             "body": body
         }
+
         def on_complete(req):
             if req.status == 200:
                 print("complete ok>>>> " + req.text)
@@ -494,7 +496,7 @@ class WritingPage(SimplePage):
         req.bind('complete', on_complete)
         req.open('POST', '/save-article', True)
         req.set_header('content-type', 'application/json')
-        req.send(data)
+        req.send(json.dumps(data))
 
 
         # USER_OPTIONS = form.elements["username"].value
