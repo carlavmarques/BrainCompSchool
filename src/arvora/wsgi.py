@@ -30,7 +30,7 @@ from tornado.options import define, options
 from tornado.escape import xhtml_escape
 
 # config options
-define('port', default=8585, type=int, help='port to run web server on')
+define('port', default=8888, type=int, help='port to run web server on')
 define('debug', default=True, help='start app in debug mode')
 define('route_to_index', default=True, help='route all requests to index.html')
 options.parse_command_line(final=True)
