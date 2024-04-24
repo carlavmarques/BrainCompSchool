@@ -13,4 +13,4 @@ USER arvorauser
 
 WORKDIR /var/www/src/arvora
 #ENTRYPOINT ["top", "-b"]
-ENTRYPOINT ["python", "wsgi.py", "--port=8585", "--debug=True"]
+ENTRYPOINT ["python", "wsgi.py", "--port=8888", "--debug=True"]
