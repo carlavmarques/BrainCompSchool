@@ -6,4 +6,4 @@ services:
     command: python3 -m wsgi --port=8585
     restart: always
     ports:
-      - "8585:8585"
+      - "8888:8888"
