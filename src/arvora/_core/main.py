@@ -152,7 +152,7 @@ class CadastroPage(SimplePage):
         tel = h.LABEL('Telefone', Class="label mt-4", style="text-align: left;")
         telI = h.INPUT(Class="input is-success", type="text", placeholder="ex.: Alex Smith")
         telC = h.DIV(telI, Class="control")
-        telD = h.DIV((tel, telC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        telD = h.DIV((tel, telC), Class="field column is-half is-offset-one-quarter", style="width:501px;")
         finalf = h.DIV(telD,  Class="columns is-mobile")
 
         #senha
