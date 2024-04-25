@@ -88,7 +88,7 @@ class SimplePage:
                 Class="icon-text", style="color: #333;", Id=f"-_{title}_--")
             return h.A(spn, Id=f"_{title}_", Class="navbar-item", href="./#")
 
-        aim = h.IMG(src="/src/arvora/_media/arvora_ico.png", alt="Arvora", height="28", Id="_MAIN_-")
+        aim = h.IMG(src="_media/arvora_ico.png", alt="Arvora", height="28", Id="_MAIN_-")
         arv = h.A(aim, Id="_MAIN_", Class="navbar-item", href="./")
         nbr = h.DIV(arv, Class="navbar-brand", Id="-_MAIN_-")
         self.items = [do_item(**item) for item in menu]
@@ -120,8 +120,8 @@ class PesquisaPage(SimplePage):
 
     def build_body(self):
         h = self.brython.html
-        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="")
-        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
+        img = h.IMG(src="_media/arvora_logo.png", Class="")
+        log = h.IMG(src="_media/lupa.svg", style="width: 365px;")
         pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
         but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
         return h.DIV((img,pes,but))
