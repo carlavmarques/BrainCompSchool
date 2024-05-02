@@ -6,6 +6,17 @@ LOCAL_FOLDER = (os.path.abspath(os.path.join(os.path.dirname(__file__))))
 db = TinyDB(os.path.join(LOCAL_FOLDER, 'brain.json'))
 
 
+Article = Query()
+def teste():
+    teste = db.search(Article.body=="uiui")
+    #teste = db.all()
+    #print(teste[10].get("body"))
+    print(teste[0].get("body"))
+
+teste()
+
+
+
 class User:
     @classmethod
     def login(cls, form):

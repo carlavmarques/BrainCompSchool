@@ -132,21 +132,8 @@ class LoginPage(SimplePage):
         # inicia o self.form, self.login e o self.passd
         self.form = self.login = self.passd = None
 
-    def click(self, ev=None):
-        _ = self
-        ajax = _.brython.ajax
-        doc = _.brython.document
-        # form = doc['form'].html
-        username = doc["username"].value
-        password = doc["password"].value
-        data = {
-            "username": username,
-            "password": password
-        }
-
-        ev.preventDefault()
-        # ev.target pega o id do target
-
+    def read(self, data=None):
+        ajax = self.brython.ajax
 
         def on_complete(req):
             if req.status == 200:
@@ -162,9 +149,9 @@ class LoginPage(SimplePage):
 
         # USER_OPTIONS = form.elements["username"].value
         # Aqui ele pega o valor inserido no elemento do form com o nome de username
-        #Arvora.ARVORA.user(form.elements["username"].value)
+        Arvora.ARVORA.user(form.elements["username"].value)
         # Aqui ele volta a mostrar a página do main
-        SimplePage.PAGES["_MAIN_"].show()
+        #SimplePage.PAGES["_MAIN_"].show()
 
         # self.brython.alert(form.elements["username"].value, form.elements["password"])
         # print(self.login.value, self.passd.type)
@@ -175,7 +162,7 @@ class LoginPage(SimplePage):
                 SimplePage.PAGES["_CADASTRO_"].show()
 
         h = self.brython.html
-        btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit").bind("click", self.click)
+        btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit")
         # Aqui ele faz os inputs de senha e login e coloca um label neles. Não sei pq tem que ser self.login
         self.passd = h.INPUT(Id="password", Class="input is-primary", type="password", placeholder="Password")
         psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
@@ -183,9 +170,9 @@ class LoginPage(SimplePage):
         eid = h.DIV(h.LABEL("Email", For="email") + self.login, Class="field")
         link = h.A("Se cadastre aqui", id='cadastro')
         link.bind("click", click)
-        form = h.DIV((eid, psw, link, btn), Class="column is-4 box", Id='login_form')
+        form = h.FORM((eid, psw, link, btn), Class="column is-4 box")
         # Aqui ele bota um submit ao apertar o botão do form e chama a função click
-
+        form.bind("submit", self.click)
 
         # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
