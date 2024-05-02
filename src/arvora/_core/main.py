@@ -122,9 +122,28 @@ class PesquisaPage(SimplePage):
         h = self.brython.html
         img = h.IMG(src="_media/arvora_logo.png", Class="")
         log = h.IMG(src="_media/lupa.svg", style="width: 365px;")
-        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+        pes = h.INPUT(log, id="search_input", type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
         but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
+        but.bind("click", self.busca)
         return h.DIV((img,pes,but))
+
+    def busca(self, ev=None):
+        busca_texto = self.brython.document['search_input'].value
+        resulta = self.buscaDados(busca_texto)
+        self.display_search(resulta)
+
+    def buscaDados(self, busca_texto):
+        from tinydb import TinyDB, Query
+        db = TinyDB('db.json')
+        query = Query()
+        db.insert({'nome': 'Julia', 'idade': '13'})
+        resulta = db.search(query.nome.search(busca_texto))
+        db.close()
+        print(resulta)
+
+    def display_search(self, resulta):
+        pass  # Você pode adicionar o código para exibir o resultado aqui
+
 
 class CadastroPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
