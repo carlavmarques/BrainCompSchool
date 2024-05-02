@@ -139,7 +139,8 @@ class PesquisaPage(SimplePage):
         db.insert({'nome': 'Julia', 'idade': '13'})
         resulta = db.search(query.nome.search(busca_texto))
         db.close()
-        print(resulta)
+        print("Dados inseridos:", db.all())  # Adicione esta linha para verificar os dados inseridos
+        print("Resultados da busca:", resulta)  # Adic
 
     def display_search(self, resulta):
         pass  # Você pode adicionar o código para exibir o resultado aqui
