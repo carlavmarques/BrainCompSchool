@@ -112,12 +112,18 @@ class ArticleHandler(tornado.web.RequestHandler):
 
 
 class UserHandler(tornado.web.RequestHandler):
-    def get(self, username):
-        pass
-    def post(self):
+    def get(self, data):
+        DS.User.login(data)
+
+    def post_get(self):
         data = self.request.body
         DS.User.sign_up(data)
         self.write(json.dumps({"message": "User created successfully"}))
+
+    def post_login(self):
+        data = self.request.body
+        DS.User.login(data)
+        self.write(json.dumps({"message": "User non-existent"}))
 
 
 
