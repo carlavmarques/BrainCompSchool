@@ -22,6 +22,7 @@ Changelog
 |   `Labase <http://labase.selfip.org/>`_ - `NCE <http://portal.nce.ufrj.br>`_ - `UFRJ <https://ufrj.br/>`_.
 
 """
+import browser.ajax as ajax
 # Então, basicamente ele está transformando essa string com esses nomes em duas listas de substrings e juntando elas com o zip, e depois, transformando elas em uma tupla dos elementos dessa junção das sublistas. Aqui tem as partes do menu. Uma tupla é uma sequência imutável de valores. A função zip combina duas listas, combina o primeiro elemento da lista 1 com o primeiro elememto da lista 2. A função slip faz com que a string se transforme em uma lista de substrings.
 MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA PERGUNTAS LOGIN USER RASCUNHO ESCREVER ARTIGO".split(),
                          "bars-progress book book-medical question right-to-bracket user".split()))
@@ -122,28 +123,16 @@ class PesquisaPage(SimplePage):
         h = self.brython.html
         img = h.IMG(src="_media/arvora_logo.png", Class="")
         log = h.IMG(src="_media/lupa.svg", style="width: 365px;")
-        pes = h.INPUT(log, id="search_input", type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
         but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
         but.bind("click", self.busca)
         return h.DIV((img,pes,but))
 
     def busca(self, ev=None):
-        busca_texto = self.brython.document['search_input'].value
-        resulta = self.buscaDados(busca_texto)
-        self.display_search(resulta)
+        def read(req):
+            print(req.json)
+        ajax.get("busca", mode="json", oncomplete=read)
 
-    def buscaDados(self, busca_texto):
-        from tinydb import TinyDB, Query
-        db = TinyDB('db.json')
-        query = Query()
-        db.insert({'nome': 'Julia', 'idade': '13'})
-        resulta = db.search(query.nome.search(busca_texto))
-        db.close()
-        print("Dados inseridos:", db.all())  
-        print("Resultados da busca:", resulta)  
-
-    def display_search(self, resulta):
-        pass  
 
 
 class CadastroPage(SimplePage):

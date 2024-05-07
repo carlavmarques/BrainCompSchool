@@ -1,30 +1,7 @@
-#!/usr/bin/env python
-# noinspection GrazieInspection
-""" Web server runner.
-
-Classes neste módulo:
-    - :py:class:`DirectoryHandler` handle all routes from web.
-
-.. codeauthor:: Carlo Oliveira <carlo@nce.ufrj.br>
-.. codeauthor:: Craig Campbell <https://craig.is>
-
-Changelog
----------
-.. versionchanged::    24.03
-   |br| Revert to enable serving index from root (07).
-
-.. versionadded::    24.03
-   |br| Initial server implementation (07).
-
-|   **Open Source Notification:** This file is part of open source program **Pynoplia**
-|   **Copyright © 2024  Carlo Oliveira** <carlo@nce.ufrj.br>,
-|   # Copyright (c) 2018, Craig Campbell
-|   **SPDX-License-Identifier:** `GNU General Public License v3.0 or later <https://is.gd/3Udt>`_.
-|   `Labase <https://labase.github.io/>`_ - `NCE <https://portal.nce.ufrj.br>`_ - `UFRJ <https://ufrj.br/>`_.
-"""
-
+import json
 import os
 import tornado.web
+from tinydb import TinyDB, Query
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
 from tornado.escape import xhtml_escape
@@ -40,10 +17,12 @@ DEBUG = options.debug
 ROUTE_TO_INDEX = options.route_to_index
 PATH = '/'
 
+# Cria o banco de dados
+db = TinyDB('../bd.json')
 
 class DirectoryHandler(tornado.web.StaticFileHandler):
     def validate_absolute_path(self, root, absolute_path):
-        print(absolute_path, self.request.uri, os.path.isdir(absolute_path))
+
         if ROUTE_TO_INDEX and self.request.uri != '/' and '.' not in self.request.uri:
             uri = self.request.uri
             if self.request.uri.endswith('/'):
@@ -53,13 +32,9 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
 
         if os.path.isdir(absolute_path):
             index = os.path.join(absolute_path, 'index.html')
-            print("os.path.isfile(index)", index, absolute_path)
             if os.path.isfile(index):
-                print("if os.path.isfile(index)", index, absolute_path)
                 return index
-
             return absolute_path
-
         return super(DirectoryHandler, self).validate_absolute_path(root, absolute_path)
 
     def get_content_type(self):
@@ -71,7 +46,6 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
 
         content_type = super(DirectoryHandler, self).get_content_type()
 
-        # default to text/html
         if content_type == 'application/octet-stream':
             return 'text/html'
 
@@ -98,6 +72,12 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
 
         return super(DirectoryHandler, cls).get_content(abspath, start=start, end=end)
 
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        User = Query()
+        saida = db.search(User.name == 'John')
+        self.write((saida[0]))
+
 
 settings = {
     'debug': DEBUG,
@@ -106,10 +86,12 @@ settings = {
 }
 
 application = tornado.web.Application([
+    (r'/busca', MainHandler),
     (r'/(.*)', DirectoryHandler, {'path': './'})
 ], **settings)
 
 if __name__ == "__main__":
     print("Listening on port %d..." % PORT)
+    print(db.all())
     application.listen(PORT)
     IOLoop.instance().start()
