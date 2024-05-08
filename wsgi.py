@@ -110,21 +110,19 @@ class ArticleHandler(tornado.web.RequestHandler):
         DS.Article.insert(data)
         self.write(json.dumps({"message": "Article saved"}))
 
-
-class UserHandler(tornado.web.RequestHandler):
-    def get(self, data):
-        DS.User.login(data)
-
-    def post_get(self):
-        data = self.request.body
-        DS.User.sign_up(data)
-        self.write(json.dumps({"message": "User created successfully"}))
-
-    def post_login(self):
+class LoginHandler(tornado.web.RequestHandler):
+    def post(self):
         data = self.request.body
         DS.User.login(data)
         self.write(json.dumps({"message": "User non-existent"}))
 
+class UserHandler(tornado.web.RequestHandler):
+    # def get(self, data):
+    #     DS.User.login(data)
+    def post(self):
+        data = self.request.body
+        text = DS.User.create(data)
+        self.write(json.dumps(text))
 
 
 settings = {
@@ -137,7 +135,7 @@ application = tornado.web.Application([
     (r'/save-article', ArticleHandler),
     (r'/load-article', ArticleHandler),
     (r'/save-user',  UserHandler),
-    (r'/load-user', UserHandler),
+    (r'/login', LoginHandler),
     (r'/(.*)', DirectoryHandler, {'path': './'}),
 ], **settings)
 

@@ -4,43 +4,77 @@ import json
 
 LOCAL_FOLDER = (os.path.abspath(os.path.join(os.path.dirname(__file__))))
 db = TinyDB(os.path.join(LOCAL_FOLDER, 'brain.json'))
-
+db_user = TinyDB(os.path.join(LOCAL_FOLDER, 'users_brain.json'))
 
 Article = Query()
 
+"""
+
+Gerenciando o banco de dados:
+
+Estrutura do Artigo--
+-- Titulo
+-- Corpo
+-- Data de cração/postagem
+
+Estrutura Usuário
+-- Nome
+-- Senha
+-- Email
+
+"""
+
+"""
+levantamento de requisitos
+
+determinamos a ordem de execução deles
+
+começo das atividades tentar concluir os requisitos semanalmente
+
+estudos das tecnologias necessarias pro desenvolvimento do projeto
 
 
 
+"""
 class User:
     @classmethod
     def login(cls, form):
-        user_data = json.loads(form.decode('utf-8'))
-        email = user_data['email']
-        password = user_data['password']
-
         User = Query()
+        user_data = json.loads(form.decode('utf-8'))
+        email = user_data.get('email')
+        password = user_data.get('password')
 
-        if db.search(User.email == email) and db.search(User.password == password):
+        if db_user.search(User.email == email) and db.search(User.password == password):
             print("Usuário válido. Pode logar!")
 
-        elif not db.search(User.passoword == password):
+        elif not db_user.search(User.password == password):
             print("Senha incorreta")
 
-        elif not db.search(User.email.exists()):
+        elif not db_user.search(User.email.exists()):
             print("Usuário não cadastrado. Cadastre-se!")
 
     @classmethod
-    def sign_up(cls, form):
+    def create(cls, user):
         User = Query()
-
-        if not db.search(User.email.exists()):
-            new_user = json.loads(form.decode('utf-8'))
-
-            db.insert(new_user)
-            print("Usuário cadastrado!")
-
+        _user = json.loads(user)
+        if db_user:
+            print("dadhasuifr")
+            if not db_user.search(User.email == _user.get("email")):
+                db_user.insert(_user)
+            else:
+                print("coe")
+                return {"message": "error"}
         else:
-            ("Usuário já existente")
+            db_user.insert(_user)
+
+        return "ok"
+        # if db_user:
+        #     if not (db_user.search(User.email==_user.get("email")):
+        #     db_user.insert(_user)
+        #         print("Usuário cadastrado!")
+        #
+        #     else:
+        #         print("Usuário já existente")
 class Article:
     @classmethod
     def load_articles(cls):

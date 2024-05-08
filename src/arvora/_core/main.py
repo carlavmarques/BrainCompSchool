@@ -114,17 +114,7 @@ class LandingPage(SimplePage):
         # retorna uma div com todos os elementos da página
         return h.DIV((tt1, tt2, phr))
 
-class PesquisaPage(SimplePage):
-    def __init__(self, brython, menu=MENU_OPTIONS):
-        super().__init__(brython, menu, hero="main_pesquisa")
 
-    def build_body(self):
-        h = self.brython.html
-        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
-        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
-        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
-        but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
-        return h.DIV((img,pes,but))
 
 class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
@@ -132,29 +122,38 @@ class LoginPage(SimplePage):
         # inicia o self.form, self.login e o self.passd
         #self.form = self.login = self.passd = None
 
-    def read(self, data=None):
+    def write(self, data=None):
         ajax = self.brython.ajax
-
         def on_complete(req):
-            if req.status == 200:
-                #loop for every user to check if exists
+            if req.status==200:
+                print("complete ok: " + f'{req.status}')
 
-                print(req.text)
+                SimplePage.PAGES["_MAIN_"].show()
+
+            else:
+                print("error detected: " + f'{req.status}')
 
         req = ajax.Ajax()
         req.bind('complete', on_complete)
-        req.open('GET', '/load-user', True)
+        req.open('POST', '/login', True)
         req.set_header('content-type', 'application/json')
-        req.send()
-
+        req.send(json.dumps(data))
+    def click(self, ev=None):
+        _ = self
+        _ = self
+        doc = _.brython.document
+        # Pegando os dados informados para login
+        email = doc["username"].value
+        password = doc["password"].value
+        data = {
+            "email": email,
+            "password": password,
+        }
+        print("testando")
+        self.write(data)
         # USER_OPTIONS = form.elements["username"].value
-        # Aqui ele pega o valor inserido no elemento do form com o nome de username
+        # Arvora.ARVORA.user(form.elements["username"].value)
 
-        # Aqui ele volta a mostrar a página do main
-        #SimplePage.PAGES["_MAIN_"].show()
-
-        # self.brython.alert(form.elements["username"].value, form.elements["password"])
-        # print(self.login.value, self.passd.type)
 
     def build_body(self):
         def click(ev):
@@ -167,16 +166,17 @@ class LoginPage(SimplePage):
         self.passd = h.INPUT(Id="password", Class="input is-primary", type="password", placeholder="Password")
         psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
         self.login = h.INPUT(Id="username", Class="input is-primary", type="text", placeholder="Email address")
-        eid = h.DIV(h.LABEL("Email", For="email") + self.login, Class="field")
+        eid = h.DIV(h.LABEL("Email", For="email") + self.login,  Class="field")
         link = h.A("Se cadastre aqui", id='cadastro')
         link.bind("click", click)
         form = h.DIV((eid, psw, link, btn), Class="column is-4 box")
         # Aqui ele bota um submit ao apertar o botão do form e chama a função click
-        form.bind("submit", self.read)
+        btn.bind("click", self.click)
 
         # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
         return cls
+
 class CadastroPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_pesquisa")
@@ -184,12 +184,12 @@ class CadastroPage(SimplePage):
     def click(self, ev=None):
 
         ajax = self.brython.ajax
-        form = ev.target
+        doc = self.brython.document
 
-        name = form.elements["name"].value
-        email = form.elements["email"].value
-        phone = form.elements["phone"].value
-        password = form.elements["password"].value
+        name = doc['name'].value
+        email = doc["email"].value
+        phone = doc["phone"].value
+        password = doc["password"].value
 
         data = {
             "name": name,
@@ -200,9 +200,11 @@ class CadastroPage(SimplePage):
 
         def on_complete(req):
             if req.status == 200:
-                print("cadastro completo")
+                print("cadastro completo " + f'{req.status}')
+                if json.loads(req.text) == "ok":
+                    SimplePage.PAGES["_MAIN_"].show()
             else:
-                print("error detected" + req.text)
+                print("error detected " + f'{req.status}')
 
         req = ajax.Ajax()
         req.bind("complete", on_complete)
@@ -249,9 +251,23 @@ class CadastroPage(SimplePage):
         buttonD = h.DIV(button, Class="field column is-half is-offset-one-quarter", style="width:500px;")
         finalh = h.DIV(buttonD, Class="columns is-mobile")
 
-        form = h.FORM((finald, finale, finalf, finalg, finalh), Class="form")
-        form.bind("submit", self.click)
+        button.bind("click", self.click)
+
+        form = h.DIV((finald, finale, finalf, finalg, finalh), Class="form")
+
         return form
+
+class PesquisaPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_pesquisa")
+
+    def build_body(self):
+        h = self.brython.html
+        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
+        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
+        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+        but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
+        return h.DIV((img,pes,but))
 class ProjectPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
@@ -532,28 +548,26 @@ class WritingPage(SimplePage):
         return quest
     
 class DraftPage(SimplePage):
-    #adicionando do init
+
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
 
     def build_body(self):
-        import json
         h = self.brython.html
         ajax = self.brython.ajax
         tor = []
         def refresh(ev):
             def on_complete(req):
-                drafts = []
                 if req.status == 200:
                     text = req.text
                     try:
-                        #drafts.append(text)
-                        show(json.loads(text))
+                        drafts = json.loads(text)
+
                     except:
                         drafts = [{"title": "Rascunho 1", "abstract": "resumo"},
                                   {"title": "Rascunho 2", "abstract": "resumo 2"},
                                   {"title": "Rascunho 3", "abstract": "resumo 3"}]
-                    print(text)
+                    show(drafts)
             req = ajax.Ajax()
             req.bind('complete', on_complete)
             req.open('GET', '/load-article', True)
@@ -561,7 +575,6 @@ class DraftPage(SimplePage):
             req.send()
         def show(drafts):
             tor = []
-            print("sdfhsdfiuoiooo12")
             for d in drafts:
                 print("u")
 
