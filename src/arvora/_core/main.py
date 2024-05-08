@@ -130,7 +130,7 @@ class LoginPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
         # inicia o self.form, self.login e o self.passd
-        self.form = self.login = self.passd = None
+        #self.form = self.login = self.passd = None
 
     def read(self, data=None):
         ajax = self.brython.ajax
@@ -149,7 +149,7 @@ class LoginPage(SimplePage):
 
         # USER_OPTIONS = form.elements["username"].value
         # Aqui ele pega o valor inserido no elemento do form com o nome de username
-        Arvora.ARVORA.user(form.elements["username"].value)
+
         # Aqui ele volta a mostrar a página do main
         #SimplePage.PAGES["_MAIN_"].show()
 
@@ -170,9 +170,9 @@ class LoginPage(SimplePage):
         eid = h.DIV(h.LABEL("Email", For="email") + self.login, Class="field")
         link = h.A("Se cadastre aqui", id='cadastro')
         link.bind("click", click)
-        form = h.FORM((eid, psw, link, btn), Class="column is-4 box")
+        form = h.DIV((eid, psw, link, btn), Class="column is-4 box")
         # Aqui ele bota um submit ao apertar o botão do form e chama a função click
-        form.bind("submit", self.click)
+        form.bind("submit", self.read)
 
         # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
@@ -545,15 +545,15 @@ class DraftPage(SimplePage):
             def on_complete(req):
                 drafts = []
                 if req.status == 200:
-                    text = json.loads(req.text)
+                    text = req.text
                     try:
-                        drafts.append(text)
-                        show(drafts)
+                        #drafts.append(text)
+                        show(json.loads(text))
                     except:
                         drafts = [{"title": "Rascunho 1", "abstract": "resumo"},
                                   {"title": "Rascunho 2", "abstract": "resumo 2"},
                                   {"title": "Rascunho 3", "abstract": "resumo 3"}]
-                    print(req.text)
+                    print(text)
             req = ajax.Ajax()
             req.bind('complete', on_complete)
             req.open('GET', '/load-article', True)
@@ -563,11 +563,13 @@ class DraftPage(SimplePage):
             tor = []
             print("sdfhsdfiuoiooo12")
             for d in drafts:
-                title = d.get("autor")
-                abstract = d.get("abstract")
+                print("u")
+
+                title = d.get("title")
+                body = d.get("body")
 
                 tit = h.P(title, Class='title is-4')
-                abst = h.P(abstract, Class='text is-6')
+                abst = h.P(body, Class='text is-6')
                 btnd = h.BUTTON("Deletar", Class="button is-danger is-rounded mt-5 is-responsive block is-fullwidth",
                                 type='submit')
 
