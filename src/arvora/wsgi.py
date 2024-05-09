@@ -74,9 +74,10 @@ class DirectoryHandler(tornado.web.StaticFileHandler):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        User = Query()
-        saida = db.search(User.name == 'John')
-        self.write((saida[0]))
+        todos_itens = db.all()
+        json_itens = json.dumps(todos_itens)
+        self.write(json_itens)
+
 
 
 settings = {
