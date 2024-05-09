@@ -145,6 +145,13 @@ class LoginPage(SimplePage):
         # Pegando os dados informados para login
         email = doc["username"].value
         password = doc["password"].value
+
+        #verificando se os dados estão corretos
+
+
+
+
+
         data = {
             "email": email,
             "password": password,
@@ -165,7 +172,7 @@ class LoginPage(SimplePage):
         # Aqui ele faz os inputs de senha e login e coloca um label neles. Não sei pq tem que ser self.login
         self.passd = h.INPUT(Id="password", Class="input is-primary", type="password", placeholder="Password")
         psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
-        self.login = h.INPUT(Id="username", Class="input is-primary", type="text", placeholder="Email address")
+        self.login = h.INPUT(Id="username", Class="input is-primary", type="email", placeholder="Email address")
         eid = h.DIV(h.LABEL("Email", For="email") + self.login,  Class="field")
         link = h.A("Se cadastre aqui", id='cadastro')
         link.bind("click", click)
@@ -364,71 +371,140 @@ users = [
         "tags": "#mav",
         "date": "2021-01-21"
     },
-    # {
-    #     "name": "Amanda",
-    #     "password": "1234",
-    #     "email": "amanda@mail",
-    #     "posts":[
-    #         {
-    #             "id": "1",
-    #             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    #             "tags": "#mav",
-    #             "date": "2021-01-21"
-    #         },
-    #     ]
-    #  },
+    {
+        "name": "Amanda",
+        "password": "1234",
+        "email": "amanda@mail",
+        "posts":[
+            {
+                "id": "1",
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "tags": "#mav",
+                "date": "2021-01-21"
+            },
+        ]
+     },]
 
-]
+
 class KnowledgePage(SimplePage):
+    # def refresh(ev):
+    #     def on_complete(req):
+    #         if req.status == 200:
+    #             text = req.text
+    #             try:
+    #                 drafts = json.loads(text)
+    #
+    #             except:
+    #                 drafts = [{"title": "Rascunho 1", "abstract": "resumo"},
+    #                           {"title": "Rascunho 2", "abstract": "resumo 2"},
+    #                           {"title": "Rascunho 3", "abstract": "resumo 3"}]
+    #             show(drafts)
+    #
+    #     req = ajax.Ajax()
+    #     req.bind('complete', on_complete)
+    #     req.open('GET', '/load-article', True)
+    #     req.set_header('content-type', 'application/json')
+    #     req.send()
+    #
+    # def show(drafts):
+    #     tor = []
+    #     # Loop que mostra as páginas de rascunho
+    #     for d in drafts:
+    #         print("u")
+    #
+    #         title = d.get("title")
+    #         body = d.get("body")
+    #
+    #         tit = h.P(title, Class='title is-4')
+    #         abst = h.P(body, Class='text is-6')
+    #         btnd = h.BUTTON("Deletar", Class="button is-danger is-rounded mt-5 is-responsive block is-fullwidth",
+    #                         type='submit')
+    #
+    #         # todos os rascunhos
+    #         tor.append(h.DIV((tit, abst, btnd), Class='box'))
+    #     wrp.clear()
+    #     wrp <= h.DIV((bt, tor), Class="column body-columns")
+    #
+    #     return wrp
+
     def __init__(self, brython, menu = MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
 
+    def click(self, ev=None):
+        if ev.target.id == "Draft":
+            SimplePage.PAGES["_RASCUNHO_"].show()
+        elif ev.target.id == "Writing":
+            SimplePage.PAGES["_ESCREVER_"].show()
+    def show_article(ev):
+        SimplePage.PAGES["_ARTIGO_"].show()
+
     def build_body(self):
-        import json
+        ajax = self.brython.ajax
         h = self.brython.html
 
-        card = ""
+        posts = h.P("Error")
+        def get_article():
+            def on_complete(req):
+                if req.status == 200:
+                    text = req.text
+                    try:
+                        drafts = json.loads(text)
 
+                    except:
+                        drafts = [{"title": "Rascunho 1", "abstract": "resumo"},
+                                  {"title": "Rascunho 2", "abstract": "resumo 2"},
+                                  {"title": "Rascunho 3", "abstract": "resumo 3"}]
+                    show(drafts)
 
-        def click(ev):
-            if ev.target.id == "Draft":
-                SimplePage.PAGES["_RASCUNHO_"].show()
-            elif ev.target.id == "Writing":
-                SimplePage.PAGES["_ESCREVER_"].show()
-        def show_article(ev):
-            SimplePage.PAGES["_ARTIGO_"].show()
+            req = ajax.Ajax()
+            req.bind('complete', on_complete)
+            req.open('GET', '/load-article', True)
+            req.set_header('content-type', 'application/json')
+            req.send()
 
-        search_bar = h.FORM(h.DIV(h.INPUT(type="text", Class="input is-success is-rounded mt-5 input-icon green-placeholder", placeholder="Pesquise aqui"), Class="column"))
-        
+        def show(articles):
+            card = ""
+            search_bar = h.FORM(h.DIV(
+                h.INPUT(type="text", Class="input is-success is-rounded mt-5 input-icon green-placeholder",
+                        placeholder="Pesquise aqui"), Class="column"))
+            # Loop que mostra as páginas de rascunho
+            for article in articles:
+                card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"),
+                                    Class="card-image image is-4by3")
 
-        for user in users:
+                card_content = h.DIV((
+                    h.FIGURE(
+                        (h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")),
+                        Class="media-left image is-48x48"),
+                    h.P(article.get("title"), Class="title is-4"),
+                    h.P("email", Class="subtitle is-6"),
+                    h.P("Estrelas: " + "10"),
+                    h.P(article.get("body")),
+                    h.P("tags"),
+                    h.P("data")), Class="content")
 
-            card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
+                card_buttons = h.DIV((
+                    h.BUTTON("Comentar", Class="button is-primary"),
+                    h.BUTTON("Perguntar", Class="button is-info"),
+                    h.BUTTON("Artigos Filhos", Class="button")), Class="card-footer")
 
-            card_content = h.DIV((
-                            h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")), Class = "media-left image is-48x48"),
-                            h.P(user["name"], Class = "title is-4"),
-                            h.P(user["email"], Class="subtitle is-6"),
-                            h.P("Estrelas: " + user["points"]),
-                            h.P(user["text"]),
-                            h.P(user["tags"]),
-                            h.P(user["date"])), Class="content")
+                card += h.DIV((card_img, card_content, card_buttons), Class="box").bind("click", self.show_article)
+            post = h.DIV((search_bar, card), Class="column is-half is-offset-one-quarter ")
+            posts.clear()
+            posts <= h.DIV(post, Class="columns body-columns")
+            return posts
 
-            card_buttons = h.DIV((
-                            h.BUTTON("Comentar", Class = "button is-primary"),
-                            h.BUTTON("Perguntar", Class="button is-info"),
-                            h.BUTTON("Artigos Filhos", Class="button")), Class = "card-footer")
+        get_article()
 
-            card += h.DIV((card_img, card_content, card_buttons), Class="box").bind("click", show_article)
-        post = h.DIV((search_bar, card), Class= "column is-half is-offset-one-quarter ")
-        posts = h.DIV(post, Class="columns body-columns")
-        btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button is-success is-rounded mt-5 is-responsive block is-fullwidth")
+        btn1 = h.BUTTON("Rascunho", Id='Draft',
+                        Class="button is-success is-rounded mt-5 is-responsive block is-fullwidth")
         btn2 = h.BUTTON("Escreva seu artigo", Id="Writing",
                         Class="button is-success is-rounded mt-5 is-responsive block is-fullwidth")
         side_tab = h.DIV((btn2, btn1), Class="column is-3")
-        side_tab.bind("click", click)
+        side_tab.bind("click", self.click)
 
-        wrapper = h.DIV((side_tab, posts), Class="columns mt-5")
+
+        wrapper = h.DIV((side_tab, posts))
         return wrapper
 
 
@@ -533,7 +609,7 @@ class WritingPage(SimplePage):
         # tit == titulo. Esse é o título da página
         tit = h.P("Escreva seu artigo", Class='title is-2 block hero p-2 has-text-success incText')
         # aut == autor. Aqui que a pessoa pode botar o nome dela ((só uma ideia inicial))
-        aut = h.INPUT(placeholder='Autor',
+        aut = h.INPUT(placeholder='Título',
                       Id = "title",
                       Class='input is-success has-fixed-size block has-text-success-dark is-medium')
         # Aqui eu to adicionando tudo dentro da div, na ordem que eu quero que eles aparecam
@@ -575,6 +651,7 @@ class DraftPage(SimplePage):
             req.send()
         def show(drafts):
             tor = []
+            # Loop que mostra as páginas de rascunho
             for d in drafts:
                 print("u")
 
@@ -595,7 +672,7 @@ class DraftPage(SimplePage):
 
         bt = h.BUTTON("Atualizar", Class="button is-primary is-rounded mt-5 is-responsive block is-fullwidth",
                         type='submit').bind("click", refresh)
-        # Loop que mostra as páginas de rascunho
+
 
         wrp = h.DIV((bt,tor), Class="column body-columns")
 
