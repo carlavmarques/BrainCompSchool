@@ -113,8 +113,8 @@ class ArticleHandler(tornado.web.RequestHandler):
 class LoginHandler(tornado.web.RequestHandler):
     def post(self):
         data = self.request.body
-        DS.User.login(data)
-        self.write(json.dumps({"message": "User non-existent"}))
+        text = DS.User.login(data)
+        self.write(json.dumps(text))
 
 class UserHandler(tornado.web.RequestHandler):
     # def get(self, data):

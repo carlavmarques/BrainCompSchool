@@ -127,8 +127,8 @@ class LoginPage(SimplePage):
         def on_complete(req):
             if req.status==200:
                 print("complete ok: " + f'{req.status}')
-
-                SimplePage.PAGES["_MAIN_"].show()
+                if json.loads(req.text) == "ok":
+                    SimplePage.PAGES["_MAIN_"].show()
 
             else:
                 print("error detected: " + f'{req.status}')
@@ -143,9 +143,10 @@ class LoginPage(SimplePage):
         _ = self
         doc = _.brython.document
         # Pegando os dados informados para login
-        email = doc["username"].value
+        email = doc["email"].value
         password = doc["password"].value
-
+        doc["email"].value = ""
+        doc["password"].value = ""
         #verificando se os dados estão corretos
 
 
@@ -168,20 +169,42 @@ class LoginPage(SimplePage):
                 SimplePage.PAGES["_CADASTRO_"].show()
 
         h = self.brython.html
-        btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit")
+
+        # email
+        ema = h.LABEL('E-mail', Class="label mt-4", style="text-align: left;")
+        self.login = h.INPUT(Id="email", Class="input is-success", type="email", placeholder="ex.: alexsmith@hhh.com")
+        emaC = h.DIV(self.login, Class="control")
+        emaD = h.DIV((ema, emaC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finale = h.DIV(emaD, Class="columns is-mobile")
+
+        # senha
+        pas = h.LABEL('Senha', Class="label mt-4", style="text-align: left;")
+        self.passd = h.INPUT(Id="password", Class="input is-success", type="password")
+        pasC = h.DIV(self.passd, Class="control has icons-left")
+        pasD = h.DIV((pas, pasC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalg = h.DIV(pasD, Class="columns is-mobile")
+
+        # button
+        button = h.BUTTON("Login", Class="button is-success is-outlined")
+        buttonD = h.DIV(button, Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finalh = h.DIV(buttonD, Class="columns is-mobile")
+
+        #btn = h.BUTTON("Login", Class="button is-primary is-fullwidth", type="submit")
         # Aqui ele faz os inputs de senha e login e coloca um label neles. Não sei pq tem que ser self.login
-        self.passd = h.INPUT(Id="password", Class="input is-primary", type="password", placeholder="Password")
-        psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
-        self.login = h.INPUT(Id="username", Class="input is-primary", type="email", placeholder="Email address")
-        eid = h.DIV(h.LABEL("Email", For="email") + self.login,  Class="field")
-        link = h.A("Se cadastre aqui", id='cadastro')
+
+        # psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
+        # self.login = h.INPUT(Id="username", Class="input is-primary", type="email", placeholder="Email address")
+        # eid = h.DIV(h.LABEL("Email", For="email") + self.login,  Class="field")
+        link = h.A("Se cadastre aqui", Id='cadastro', Class = "has-text-dark")
+        linkD = h.DIV(link, Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        finall = h.DIV(linkD, Class="columns is-mobile")
         link.bind("click", click)
-        form = h.DIV((eid, psw, link, btn), Class="column is-4 box")
+        form = h.DIV((finale, finalg, finall, finalh), Class="column")
         # Aqui ele bota um submit ao apertar o botão do form e chama a função click
-        btn.bind("click", self.click)
+        button.bind("click", self.click)
 
         # Aqui ele retorna a div com todos os elementos, após aplicar o bulma
-        cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
+        cls = h.DIV(form, Class="columns is-flex is-centered")
         return cls
 
 class CadastroPage(SimplePage):

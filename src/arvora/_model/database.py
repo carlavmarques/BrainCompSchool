@@ -41,17 +41,20 @@ class User:
     def login(cls, form):
         User = Query()
         user_data = json.loads(form.decode('utf-8'))
-        email = user_data.get('email')
-        password = user_data.get('password')
+        email = user_data['email']
+        password = user_data['password']
+        print(email)
+        if(db_user.search(User.email == email)):
+            print("asdasda")
+            return "ok"
+            if db_user.search(User.password == password):
+                 return "ok"
+            else:
+                return "error"
 
-        if db_user.search(User.email == email) and db.search(User.password == password):
-            print("Usuário válido. Pode logar!")
-
-        elif not db_user.search(User.password == password):
-            print("Senha incorreta")
-
-        elif not db_user.search(User.email.exists()):
-            print("Usuário não cadastrado. Cadastre-se!")
+        else:
+            print("asdasda1")
+            return "error"
 
     @classmethod
     def create(cls, user):
