@@ -25,6 +25,7 @@ Changelog
 
 import os
 import tornado.web
+from tinydb import TinyDB, Query
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
 from tornado.escape import xhtml_escape
