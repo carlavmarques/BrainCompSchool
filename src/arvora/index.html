@@ -67,12 +67,12 @@ PDX-License-Identifier:** `GNU General Public License v3.0 or later <http://is.g
 <body onload="brython({cache:'browser', static_stdlib_import:true, debug:1, pythonpath:['./_core', './_prog', './']})">
     <div id="pydiv"></div>
     <script type="text/python">
-        from browser import window, document, alert, html, timer
+        from browser import window, document, alert, html, timer, ajax
         from browser.widgets.dialog import InfoDialog, Dialog
         from _core.main import main
         class Br:
-            window, document, alert, html, timer =(
-            window, document, alert, html, timer)
+            window, document, alert, html, timer, ajax =(
+            window, document, alert, html, timer, ajax)
         main(Br)
     </script>
 
