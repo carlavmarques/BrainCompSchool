@@ -5,5 +5,14 @@ services:
     build: src/arvora
     command: python3 -m wsgi --port=8585
     restart: always
+    environment:
+      - VIRTUAL_PORT=8585
     ports:
       - "8585:8585"
+
+  database:
+        image: tinydb:latest
+        volumes:
+           - tinydb-data/var/lib/docker
+volumes:
+  tinydb-data:

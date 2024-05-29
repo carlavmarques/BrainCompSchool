@@ -124,7 +124,8 @@ class PesquisaPage(SimplePage):
         h = self.brython.html
         img = h.IMG(src="_media/arvora_logo.png", Class="")
         log = h.IMG(src="_media/lupa.svg", style="width: 365px;")
-        pes = h.INPUT(log, type="text",id="pesquisa", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+
+        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
         but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
         but.bind("click", self.busca)
         div_resultados = h.DIV(id="resultados")
@@ -187,7 +188,7 @@ class CadastroPage(SimplePage):
         tel = h.LABEL('Telefone', Class="label mt-4", style="text-align: left;")
         telI = h.INPUT(Class="input is-success", type="text", placeholder="ex.: Alex Smith")
         telC = h.DIV(telI, Class="control")
-        telD = h.DIV((tel, telC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
+        telD = h.DIV((tel, telC), Class="field column is-half is-offset-one-quarter", style="width:501px;")
         finalf = h.DIV(telD,  Class="columns is-mobile")
 
         #senha
